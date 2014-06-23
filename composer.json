@@ -1,0 +1,9 @@
+{
+	"name": "webvimark/generators",
+	"description": "Generators for yii 2",
+	"autoload": {
+		"psr-4": {
+			"webvimark\\generators\\": ""
+		}
+	}
+}
