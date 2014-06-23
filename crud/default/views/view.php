@@ -5,7 +5,7 @@ use yii\helpers\StringHelper;
 
 /**
  * @var yii\web\View $this
- * @var yii\gii\generators\crud\Generator $generator
+ * @var webvimark\generators\crud\Generator $generator
  */
 
 $urlParams = $generator->generateUrlParams();
@@ -27,14 +27,14 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-view">
 
-    <h1><?= "<?= " ?>Html::encode($this->title) ?></h1>
+    <h2><?= "<?= " ?>Html::encode($this->title) ?></h2>
 
     <p>
-        <?= "<?= " ?>Html::a(<?= $generator->generateString('Update') ?>, ['update', <?= $urlParams ?>], ['class' => 'btn btn-primary']) ?>
-        <?= "<?= " ?>Html::a(<?= $generator->generateString('Delete') ?>, ['delete', <?= $urlParams ?>], [
-            'class' => 'btn btn-danger',
+        <?= "<?= " ?>Html::a(<?= $generator->generateString('Редактировать') ?>, ['update', <?= $urlParams ?>], ['class' => 'btn btn-sm btn-primary']) ?>
+        <?= "<?= " ?>Html::a(<?= $generator->generateString('Удалить') ?>, ['delete', <?= $urlParams ?>], [
+            'class' => 'btn btn-sm btn-danger',
             'data' => [
-                'confirm' => <?= $generator->generateString('Are you sure you want to delete this item?') ?>,
+                'confirm' => <?= $generator->generateString('Вы уверены, что хотите удалить этот элемент?') ?>,
                 'method' => 'post',
             ],
         ]) ?>

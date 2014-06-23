@@ -49,7 +49,17 @@ use webvimark\extensions\BootstrapSwitch\BootstrapSwitch;
 } ?>
 	<div class="form-group">
 		<div class="col-sm-offset-3 col-sm-9">
-			<?= "<?= " ?>Html::submitButton($model->isNewRecord ? <?= $generator->generateString('Create') ?> : <?= $generator->generateString('Update') ?>, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+			<?= "<?php if ( \$model->isNewRecord ): ?>
+				<?= Html::submitButton(
+					'<span class=\"glyphicon glyphicon-plus-sign\"></span> ".trim($generator->generateString('Создать'),"'")."',
+					['class' => 'btn btn-success']
+				) ?>
+			<?php else: ?>
+				<?= Html::submitButton(
+					'<span class=\"glyphicon glyphicon-ok\"></span> ".trim($generator->generateString('Сохранить'), "'")."',
+					['class' => 'btn btn-primary']
+				) ?>
+			<?php endif; ?>" ?>
 		</div>
 	</div>
 

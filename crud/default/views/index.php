@@ -19,6 +19,7 @@ use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 use yii\widgets\Pjax;
 use webvimark\extensions\GridBulkActions\GridBulkActions;
+use webvimark\extensions\GridBulkActions\GridPageSize;
 use <?= $generator->indexWidgetType === 'grid' ? "yii\\grid\\GridView" : "yii\\widgets\\ListView" ?>;
 
 /**
@@ -27,12 +28,12 @@ use <?= $generator->indexWidgetType === 'grid' ? "yii\\grid\\GridView" : "yii\\w
 <?= !empty($generator->searchModelClass) ? " * @var " . ltrim($generator->searchModelClass, '\\') . " \$searchModel\n" : '' ?>
  */
 
-$this->title = <?= $generator->generateString(Inflector::pluralize(Inflector::camel2words(StringHelper::basename($generator->modelClass)))) ?>;
+$this->title = <?= $generator->generateString($generator->indexTitle) ?>;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-index">
 
-	<h1><?= "<?= " ?>Html::encode($this->title) ?></h1>
+	<h2><?= "<?= " ?>Html::encode($this->title) ?></h2>
 <?php if(!empty($generator->searchModelClass)): ?>
 <?= "	<?php " . ($generator->indexWidgetType === 'grid' ? "// " : "") ?>echo $this->render('_search', ['model' => $searchModel]); ?>
 <?php endif; ?>
@@ -40,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	<div class="row">
 		<div class="col-sm-6">
 			<p>
-				<?= "<?= " ?>Html::a(<?= $generator->generateString('Create {modelClass}', ['modelClass' => Inflector::camel2words(StringHelper::basename($generator->modelClass))]) ?>, ['create'], ['class' => 'btn btn-success']) ?>
+				<?= "<?= " ?>Html::a('<span class="glyphicon glyphicon-plus-sign"></span> ' . <?= $generator->generateString('Создать') ?>, ['create'], ['class' => 'btn btn-success']) ?>
 			</p>
 		</div>
 
@@ -59,6 +60,10 @@ $this->params['breadcrumbs'][] = $this->title;
 	<?= "<?= " ?>GridView::widget([
 		'id'=>'<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-grid',
 		'dataProvider' => $dataProvider,
+		'pager'=>[
+			'lastPageLabel'=>'>>',
+			'firstPageLabel'=>'<<',
+		],
 		<?= !empty($generator->searchModelClass) ? "'filterModel' => \$searchModel,\n		'columns' => [\n" : "'columns' => [\n"; ?>
 			['class' => 'yii\grid\SerialColumn', 'options'=>['style'=>'width:10px'] ],
 
@@ -104,4 +109,5 @@ else
 
 	<?= "<?php Pjax::end() ?>" ?>
 
+	<?= "<?= GridPageSize::widget(['pjaxId'=>'".Inflector::camel2id(StringHelper::basename($generator->modelClass))."-grid-pjax']) ?>" ?>
 </div>

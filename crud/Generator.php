@@ -33,10 +33,35 @@ class Generator extends \yii\gii\generators\crud\Generator
 	public $baseControllerClass = 'webvimark\components\BaseController';
 	public $indexWidgetType = 'grid';
 	public $searchModelClass;
+	public $indexTitle;
+	public $createUpdateTitle;
 
 	public function getName()
 	{
 		return '------ CRUD';
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function rules()
+	{
+		return array_merge(parent::rules(), [
+			[['indexTitle', 'createUpdateTitle'], 'filter', 'filter' => 'trim'],
+			[['indexTitle', 'createUpdateTitle'], 'required'],
+		]);
+	}
+
+
+	/**
+	 * @inheritdoc
+	 */
+	public function hints()
+	{
+		return array_merge(parent::hints(), [
+			'indexTitle' => 'Title for the index page',
+			'createUpdateTitle' => 'Title for the create and update pages <code>Создание бла-бла-бла</code> или <code>Редактирование бла-бла-бла</code>',
+		]);
 	}
 
 	/**
