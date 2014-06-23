@@ -8,6 +8,7 @@
 	},
 	"require": {
 		"webvimark/bootstrap-switch": "dev-master",
+		"webvimark/grid-bulk-actions": "dev-master",
 		"webvimark/components": "dev-master"
 	}
 }

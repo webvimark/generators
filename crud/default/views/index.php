@@ -5,7 +5,7 @@ use yii\helpers\StringHelper;
 
 /**
  * @var yii\web\View $this
- * @var app\webvimark\generators\crud\Generator $generator
+ * @var webvimark\generators\crud\Generator $generator
  */
 
 $urlParams = $generator->generateUrlParams();
@@ -18,6 +18,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 use yii\widgets\Pjax;
+use webvimark\extensions\GridBulkActions\GridBulkActions;
 use <?= $generator->indexWidgetType === 'grid' ? "yii\\grid\\GridView" : "yii\\widgets\\ListView" ?>;
 
 /**
@@ -36,9 +37,18 @@ $this->params['breadcrumbs'][] = $this->title;
 <?= "	<?php " . ($generator->indexWidgetType === 'grid' ? "// " : "") ?>echo $this->render('_search', ['model' => $searchModel]); ?>
 <?php endif; ?>
 
-	<p>
-		<?= "<?= " ?>Html::a(<?= $generator->generateString('Create {modelClass}', ['modelClass' => Inflector::camel2words(StringHelper::basename($generator->modelClass))]) ?>, ['create'], ['class' => 'btn btn-success']) ?>
-	</p>
+	<div class="row">
+		<div class="col-sm-6">
+			<p>
+				<?= "<?= " ?>Html::a(<?= $generator->generateString('Create {modelClass}', ['modelClass' => Inflector::camel2words(StringHelper::basename($generator->modelClass))]) ?>, ['create'], ['class' => 'btn btn-success']) ?>
+			</p>
+		</div>
+
+		<div class="col-sm-6 text-right">
+			<?= "<?= GridBulkActions::widget(['gridId'=>'".Inflector::camel2id(StringHelper::basename($generator->modelClass))."-grid']) ?>" ?>
+		</div>
+	</div>
+
 
 	<?= "<?php Pjax::begin([
 		'id'=>'".Inflector::camel2id(StringHelper::basename($generator->modelClass)) ."-grid-pjax',
@@ -50,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		'id'=>'<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-grid',
 		'dataProvider' => $dataProvider,
 		<?= !empty($generator->searchModelClass) ? "'filterModel' => \$searchModel,\n		'columns' => [\n" : "'columns' => [\n"; ?>
-			['class' => 'yii\grid\SerialColumn'],
+			['class' => 'yii\grid\SerialColumn', 'options'=>['style'=>'width:10px'] ],
 
 <?php
 $count = 0;
@@ -75,8 +85,11 @@ else
 	}
 }
 ?>
-			['class' => 'yii\grid\CheckboxColumn'],
-			['class' => 'yii\grid\ActionColumn'],
+			['class' => 'yii\grid\CheckboxColumn', 'options'=>['style'=>'width:10px'] ],
+			[
+				'class' => 'yii\grid\ActionColumn',
+				'contentOptions'=>['style'=>'width:70px; text-align:center;'],
+			],
 		],
 	]); ?>
 <?php else: ?>

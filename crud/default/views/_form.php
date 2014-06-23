@@ -24,7 +24,7 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\ArrayHelper;
 <?php endif; ?>
 <?php if ( $generator->hasCheckBoxes() ): ?>
-use webvimark\extensions\BootstrapSwitch;
+use webvimark\extensions\BootstrapSwitch\BootstrapSwitch;
 <?php endif; ?>
 
 /**

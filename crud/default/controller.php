@@ -7,7 +7,7 @@ use yii\helpers\StringHelper;
  * This is the template for generating a CRUD controller class file.
  *
  * @var yii\web\View $this
- * @var app\webvimark\generators\crud\Generator $generator
+ * @var webvimark\generators\crud\Generator $generator
  */
 
 $controllerClass = StringHelper::basename($generator->controllerClass);
