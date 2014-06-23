@@ -23,6 +23,9 @@ use yii\bootstrap\ActiveForm;
 <?php if ( $generator->tableSchema->foreignKeys ): ?>
 use yii\helpers\ArrayHelper;
 <?php endif; ?>
+<?php if ( $generator->hasCheckboxes ): ?>
+use webvimark\extensions\BootstrapSwitch;
+<?php endif; ?>
 
 /**
  * @var yii\web\View $this
