@@ -23,6 +23,7 @@ use yii\helpers\StringHelper;
  */
 class Generator extends \yii\gii\generators\module\Generator
 {
+	public $moduleClass = 'app\modules\\';
 
 	/**
 	 * @inheritdoc

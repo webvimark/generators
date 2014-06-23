@@ -34,9 +34,6 @@ class Generator extends \yii\gii\generators\crud\Generator
 	public $indexWidgetType = 'grid';
 	public $searchModelClass;
 
-	// For _form used in generateActiveField()
-	public $hasCheckboxes = false;
-
 	public function getName()
 	{
 		return '------ CRUD';
@@ -424,6 +421,20 @@ class Generator extends \yii\gii\generators\crud\Generator
 	}
 
 	/**
+	 * @return bool
+	 */
+	public function hasCheckBoxes()
+	{
+		foreach ($this->tableSchema->columns as $column)
+		{
+			if ( $column->dbType === 'tinyint(1)' )
+				return true;
+		}
+
+		return false;
+	}
+
+	/**
 	 * Generates code for active field
 	 *
 	 * @param string $attribute
@@ -448,7 +459,6 @@ class Generator extends \yii\gii\generators\crud\Generator
 
 		if ( $column->dbType === 'tinyint(1)' )
 		{
-			$this->hasCheckboxes = true;
 			return "\$form->field(\$model->loadDefaultValues(), '$attribute')->checkbox(['class'=>'b-switch'], false)";
 		}
 		elseif ( $column->type === 'text' )

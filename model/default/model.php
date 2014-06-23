@@ -3,7 +3,7 @@
  * This is the template for generating the model class of a specified table.
  *
  * @var yii\web\View $this
- * @var app\webvimark\generators\model\Generator $generator
+ * @var webvimark\generators\model\Generator $generator
  * @var string $tableName full table name
  * @var string $className class name
  * @var yii\db\TableSchema $tableSchema
@@ -19,8 +19,9 @@ namespace <?= $generator->ns ?>;
 
 use Yii;
 use yii\helpers\Inflector;
+<?php if ( in_array('created_at', $tableSchema->columnNames) ): ?>
 use yii\behaviors\TimestampBehavior;
-
+<?php endif; ?>
 
 /**
  * This is the model class for table "<?= $tableName ?>".

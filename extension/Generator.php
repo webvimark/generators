@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace app\webvimark\generators\extension;
+namespace webvimark\generators\extension;
 
 use Yii;
 use yii\gii\CodeFile;

@@ -5,7 +5,7 @@ use yii\helpers\StringHelper;
 
 /**
  * @var yii\web\View $this
- * @var app\webvimark\generators\crud\Generator $generator
+ * @var webvimark\generators\crud\Generator $generator
  */
 
 /** @var \yii\db\ActiveRecord $model */
@@ -23,7 +23,7 @@ use yii\bootstrap\ActiveForm;
 <?php if ( $generator->tableSchema->foreignKeys ): ?>
 use yii\helpers\ArrayHelper;
 <?php endif; ?>
-<?php if ( $generator->hasCheckboxes ): ?>
+<?php if ( $generator->hasCheckBoxes() ): ?>
 use webvimark\extensions\BootstrapSwitch;
 <?php endif; ?>
 
@@ -57,6 +57,6 @@ use webvimark\extensions\BootstrapSwitch;
 
 </div>
 
-<?php if ( $generator->hasCheckboxes ): ?>
+<?php if ( $generator->hasCheckBoxes() ): ?>
 <?= "<?php BootstrapSwitch::widget() ?>" ?>
 <?php endif; ?>

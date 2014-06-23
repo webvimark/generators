@@ -7,6 +7,7 @@
 		}
 	},
 	"require": {
-		"webvimark/bootstrap-switch": "dev-master"
+		"webvimark/bootstrap-switch": "dev-master",
+		"webvimark/components": "dev-master"
 	}
 }
