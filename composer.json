@@ -5,5 +5,8 @@
 		"psr-4": {
 			"webvimark\\generators\\": ""
 		}
+	},
+	"require": {
+		"webvimark/bootstrap-switch": "dev-master"
 	}
 }
