@@ -5,7 +5,7 @@
  * @license   http://www.yiiframework.com/license/
  */
 
-namespace app\webvimark\generators\model;
+namespace webvimark\generators\model;
 
 use Yii;
 use yii\db\ActiveRecord;
@@ -27,7 +27,7 @@ class Generator extends \yii\gii\generators\model\Generator
 	public $ns = 'app\models';
 	public $tableName;
 	public $modelClass;
-	public $baseClass = 'app\webvimark\components\BaseActiveRecord';
+	public $baseClass = 'webvimark\components\BaseActiveRecord';
 	public $generateRelations = true;
 	public $generateLabelsFromComments = false;
 	public $useTablePrefix = false;

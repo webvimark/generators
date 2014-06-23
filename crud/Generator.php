@@ -5,18 +5,14 @@
  * @license   http://www.yiiframework.com/license/
  */
 
-namespace app\webvimark\generators\crud;
+namespace webvimark\generators\crud;
 
 use Yii;
 use yii\db\ActiveRecord;
-use yii\db\BaseActiveRecord;
 use yii\db\ColumnSchema;
 use yii\db\Schema;
-use yii\gii\CodeFile;
 use yii\helpers\Inflector;
-use yii\helpers\StringHelper;
 use yii\helpers\VarDumper;
-use yii\web\Controller;
 
 /**
  * Generates CRUD
@@ -34,7 +30,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 	public $modelClass = "app\\";
 	public $moduleID;
 	public $controllerClass;
-	public $baseControllerClass = 'app\webvimark\components\BaseController';
+	public $baseControllerClass = 'webvimark\components\BaseController';
 	public $indexWidgetType = 'grid';
 	public $searchModelClass;
 
@@ -162,7 +158,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 	protected function _generateSorterColumn($column)
 	{
 
-		return "['class' => 'app\webvimark\components\SorterColumn']";
+		return "['class' => 'webvimark\components\SorterColumn']";
 	}
 
 	/**
@@ -174,7 +170,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 	{
 
 		return "[
-				'class'=>'app\webvimark\components\StatusColumn',
+				'class'=>'webvimark\components\StatusColumn',
 				'attribute'=>'{$column->name}',
 				'toggleUrl'=>Url::to(['toggle-attribute', 'attribute'=>'{$column->name}', 'id'=>'_id_']),
 			]";
