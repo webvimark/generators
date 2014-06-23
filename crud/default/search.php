@@ -65,6 +65,9 @@ class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $m
 <?php endif; ?>
 		$dataProvider = new ActiveDataProvider([
 			'query' => $query,
+			'pagination' => [
+				'pageSize' => \Yii::$app->request->cookies->getValue('_grid_page_size', 20),
+			],
 		]);
 
 		if (!($this->load($params) && $this->validate())) {

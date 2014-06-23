@@ -19,7 +19,7 @@ use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 use yii\widgets\Pjax;
 use webvimark\extensions\GridBulkActions\GridBulkActions;
-use webvimark\extensions\GridBulkActions\GridPageSize;
+use webvimark\extensions\GridPageSize\GridPageSize;
 use <?= $generator->indexWidgetType === 'grid' ? "yii\\grid\\GridView" : "yii\\widgets\\ListView" ?>;
 
 /**
@@ -110,4 +110,5 @@ else
 	<?= "<?php Pjax::end() ?>" ?>
 
 	<?= "<?= GridPageSize::widget(['pjaxId'=>'".Inflector::camel2id(StringHelper::basename($generator->modelClass))."-grid-pjax']) ?>" ?>
+
 </div>
