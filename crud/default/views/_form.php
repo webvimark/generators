@@ -37,7 +37,7 @@ use webvimark\extensions\BootstrapSwitch\BootstrapSwitch;
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-form">
 
 	<?= "<?php " ?>$form = ActiveForm::begin([
-		'id'=>'<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>',
+		'id'=>'<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-form',
 		'layout'=>'horizontal',
 	]); ?>
 
@@ -60,6 +60,7 @@ use webvimark\extensions\BootstrapSwitch\BootstrapSwitch;
 					['class' => 'btn btn-primary']
 				) ?>
 			<?php endif; ?>" ?>
+
 		</div>
 	</div>
 

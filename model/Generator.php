@@ -90,6 +90,7 @@ class Generator extends \yii\gii\generators\model\Generator
 	{
 		$t = [
 			'name'              => 'Название',
+			'login'             => 'Логин',
 			'url'               => 'Ссылка',
 			'active'            => 'Активно',
 			'status'            => 'Статус',

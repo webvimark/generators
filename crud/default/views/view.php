@@ -22,40 +22,56 @@ use yii\widgets\DetailView;
  */
 
 $this->title = $model-><?= $generator->getNameAttribute() ?>;
-$this->params['breadcrumbs'][] = ['label' => <?= $generator->generateString(Inflector::pluralize(Inflector::camel2words(StringHelper::basename($generator->modelClass)))) ?>, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => <?= $generator->generateString($generator->indexTitle) ?>, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-view">
 
-    <h2><?= "<?= " ?>Html::encode($this->title) ?></h2>
 
-    <p>
-        <?= "<?= " ?>Html::a(<?= $generator->generateString('Редактировать') ?>, ['update', <?= $urlParams ?>], ['class' => 'btn btn-sm btn-primary']) ?>
-        <?= "<?= " ?>Html::a(<?= $generator->generateString('Удалить') ?>, ['delete', <?= $urlParams ?>], [
-            'class' => 'btn btn-sm btn-danger',
-            'data' => [
-                'confirm' => <?= $generator->generateString('Вы уверены, что хотите удалить этот элемент?') ?>,
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<strong>
+				<span class="glyphicon glyphicon-th"></span> <?= "<?= Html::encode(\$this->title) ?>" ?>
 
-    <?= "<?= " ?>DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-<?php
-if (($tableSchema = $generator->getTableSchema()) === false) {
-    foreach ($generator->getColumnNames() as $name) {
-        echo "            '" . $name . "',\n";
-    }
-} else {
-    foreach ($generator->getTableSchema()->columns as $column) {
-        $format = $generator->generateColumnFormat($column);
-        echo "            '" . $column->name . ($format === 'text' ? "" : ":" . $format) . "',\n";
-    }
-}
-?>
-        ],
-    ]) ?>
+			</strong>
+		</div>
+		<div class="panel-body">
 
+			<p>
+				<?= "<?= " ?>Html::a(<?= $generator->generateString('Редактировать') ?>, ['update', <?= $urlParams ?>], ['class' => 'btn btn-sm btn-primary']) ?>
+				<?= "<?= " ?>Html::a(<?= $generator->generateString('Создать') ?>, ['create'], ['class' => 'btn btn-sm btn-success']) ?>
+				<?= "<?= " ?>Html::a(<?= $generator->generateString('Удалить') ?>, ['delete', <?= $urlParams ?>], [
+					'class' => 'btn btn-sm btn-danger pull-right',
+					'data' => [
+						'confirm' => <?= $generator->generateString('Вы уверены, что хотите удалить этот элемент?') ?>,
+						'method' => 'post',
+					],
+				]) ?>
+			</p>
+
+			<?= "<?= " ?>DetailView::widget([
+				'model' => $model,
+				'attributes' => [
+				<?php
+				if (($tableSchema = $generator->getTableSchema()) === false)
+				{
+					foreach ($generator->getColumnNames() as $name)
+					{
+						echo "					'" . $name . "',\n";
+					}
+				}
+				else
+				{
+					foreach ($generator->getTableSchema()->columns as $column)
+					{
+						$format = $generator->generateColumnFormat($column);
+						echo "					'" . $column->name . ($format === 'text' ? "" : ":" . $format) . "',\n";
+					}
+				}
+				?>
+				],
+			]) ?>
+
+		</div>
+	</div>
 </div>
