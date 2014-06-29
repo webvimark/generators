@@ -33,12 +33,16 @@ use webvimark\extensions\BootstrapSwitch\BootstrapSwitch;
  * @var yii\bootstrap\ActiveForm $form
  */
 ?>
-
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-form">
 
 	<?= "<?php " ?>$form = ActiveForm::begin([
 		'id'=>'<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-form',
 		'layout'=>'horizontal',
+	<?php if ( $generator->hasImages() ): ?>
+		'options'=>[
+			'enctype'=>"multipart/form-data",
+		]
+	<?php endif; ?>
 	]); ?>
 
 <?php foreach ($generator->orderAttributesForForm($safeAttributes) as $attribute) {

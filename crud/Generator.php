@@ -65,7 +65,43 @@ class Generator extends \yii\gii\generators\crud\Generator
 	}
 
 	/**
-	 * Return array of relations
+	 * Check if there are images or logos in table
+	 *
+	 * @return bool
+	 */
+	public function hasImages()
+	{
+		foreach ($this->tableSchema->columns as $name => $uselessStuff)
+		{
+			if ( $this->isImage($name) )
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * @param string $name
+	 *
+	 * @return bool
+	 */
+	public function isImage($name)
+	{
+		if ( strpos($name, 'image') !== false OR strpos($name, 'logo') !== false )
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Return array of relations if FK ids as keys and ref names as values
+	 *
+	 * ['excursion_type_id'=>'excursionType']
+	 *
 	 * @return array
 	 */
 	public function getRelationRefs()
@@ -73,7 +109,10 @@ class Generator extends \yii\gii\generators\crud\Generator
 		$refs = [];
 		foreach ($this->tableSchema->foreignKeys as $fk)
 		{
-			$refs[] = lcfirst(Inflector::id2camel($fk[0], '_'));
+			$tmp = array_keys($fk);
+			$fkId = end($tmp);
+
+			$refs[$fkId] = lcfirst(Inflector::id2camel($fk[0], '_'));
 		}
 
 		return $refs;
@@ -97,6 +136,10 @@ class Generator extends \yii\gii\generators\crud\Generator
 		elseif ( $column->name == 'sorter' )
 		{
 			return $this->_generateSorterColumn($column);
+		}
+		elseif ( $this->isImage($column->name) )
+		{
+			return $this->_generateImageColumn($column);
 		}
 		elseif ( $this->_isFk($column) )
 		{
@@ -161,12 +204,27 @@ class Generator extends \yii\gii\generators\crud\Generator
 	 *
 	 * @return string
 	 */
+	protected function _generateImageColumn($column)
+	{
+		return "[
+				'value'=>function(\$model){
+						return Html::img(\$model->getImageUrl('small', '{$column->name}'));
+					},
+				'format'=>'raw',
+			]";
+	}
+
+	/**
+	 * @param ColumnSchema $column
+	 *
+	 * @return string
+	 */
 	protected function _generateLinkColumn($column)
 	{
 		return "[
 				'attribute'=>'{$column->name}',
 				'value'=>function(\$model){
-						return Html::a(\$model->name, ['update', 'id'=>\$model->id]);
+						return Html::a(\$model->name, ['update', 'id'=>\$model->id], ['data-pjax'=>0]);
 					},
 				'format'=>'raw',
 			]";
@@ -217,6 +275,57 @@ class Generator extends \yii\gii\generators\crud\Generator
 			'active',
 			'status',
 			'sorter'
+		];
+
+		foreach (array_reverse($startItems) as $startItem)
+		{
+			if ( isset($columns[$startItem]) )
+			{
+				$item = $columns[$startItem];
+				unset($columns[$startItem]);
+
+				array_unshift($columns, $item);
+			}
+		}
+
+		foreach ($endItems as $endItem)
+		{
+			if ( isset($columns[$endItem]) )
+			{
+				$item = $columns[$endItem];
+				unset($columns[$endItem]);
+
+				array_push($columns, $item);
+			}
+		}
+
+
+		return $columns;
+	}
+	/**
+	 * Reorder columns for view (like "name" goes first and "sorter" last)
+	 *
+	 * @param array $columns
+	 *
+	 * @return array
+	 */
+	public function orderColumnsForView($columns)
+	{
+		$startItems = [
+			'id',
+			'active',
+			'status',
+			'name',
+			'username',
+			'login',
+			'url',
+			'email',
+		];
+		$endItems   = [
+			'image',
+			'logo',
+			'created_at',
+			'updated_at',
 		];
 
 		foreach (array_reverse($startItems) as $startItem)
@@ -374,6 +483,104 @@ class Generator extends \yii\gii\generators\crud\Generator
 		return in_array($name, $notShow);
 	}
 
+	/**
+	 * @param string $name
+	 *
+	 * @return bool
+	 */
+	public function checkNotShowColumnNameInView($name)
+	{
+		$notShow = [
+			'sorter',
+		];
+
+		return in_array($name, $notShow);
+	}
+
+
+	/**
+	 * @param ColumnSchema $column
+	 *
+	 * @return string
+	 */
+	public function generateColumnDependOnNameInView($column)
+	{
+		if ( $column->dbType == 'tinyint(1)' )
+		{
+			return $this->_generateStatusColumnInView($column);
+		}
+		elseif ( $this->isImage($column->name) )
+		{
+			return $this->_generateImageColumnInView($column);
+		}
+		elseif ( $column->type == 'text' )
+		{
+			return "'" . $column->name . ':raw' . "'";
+		}
+		elseif ( $column->name == 'url' )
+		{
+			return "'" . $column->name . "'";
+		}
+		elseif ( in_array($column->name, ['created_at', 'updated_at']) )
+		{
+			return "'" . $column->name . ':datetime' . "'";
+		}
+		elseif ( $this->_isFk($column) )
+		{
+			return $this->_generateFkColumnInView($column);
+		}
+
+		$format = $this->generateColumnFormat($column);
+
+		$result = $column->name . ($format === 'text' ? "" : ":" . $format);
+
+		return "'" . $result . "'";
+	}
+
+	/**
+	 * @param ColumnSchema $column
+	 *
+	 * @return mixed
+	 */
+	protected function _generateStatusColumnInView($column)
+	{
+		return "[
+						'attribute'=>'{$column->name}',
+						'value'=>(\$model->{$column->name} == 1) ?
+								'<span class=\"label label-success\">Да</span>' :
+								'<span class=\"label label-warning\">Нет</span>',
+						'format'=>'raw',
+					]";
+	}
+
+	/**
+	 * @param ColumnSchema $column
+	 *
+	 * @return mixed
+	 */
+	protected function _generateImageColumnInView($column)
+	{
+		return "[
+						'attribute'=>'{$column->name}',
+						'value'=>Html::img(\$model->getImageUrl('medium', '{$column->name}')),
+						'format'=>'raw',
+					]";
+	}
+
+	/**
+	 * @param ColumnSchema $column
+	 *
+	 * @return mixed
+	 */
+	protected function _generateFkColumnInView($column)
+	{
+		$refTables = $this->getRelationRefs();
+
+		return "[
+						'attribute'=>'{$column->name}',
+						'value'=>@\$model->".$refTables[$column->name]."->name,
+					]";
+	}
 
 	/**
 	 * Generates search conditions
@@ -490,6 +697,10 @@ class Generator extends \yii\gii\generators\crud\Generator
 		{
 			return "\$form->field(\$model, '$attribute')->textarea(['rows' => 6])";
 		}
+		elseif ( $this->isImage($column->name) )
+		{
+			return $this->_generateImageField($column);
+		}
 		elseif ( $column->name === 'name' )
 		{
 			return "\$form->field(\$model, '$attribute')->textInput(['maxlength' => 255, 'autofocus'=>\$model->isNewRecord ? true:false])";
@@ -537,5 +748,15 @@ class Generator extends \yii\gii\generators\crud\Generator
 				return "\$form->field(\$model, '$attribute')->$input(['maxlength' => $column->size])";
 			}
 		}
+	}
+
+	/**
+	 * @param ColumnSchema $column
+	 *
+	 * @return string
+	 */
+	protected function _generateImageField($column)
+	{
+//		return "\$form->field(\$model, '$attribute')->fileInput()";
 	}
 }

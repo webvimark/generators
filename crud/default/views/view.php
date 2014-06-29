@@ -55,17 +55,24 @@ $this->params['breadcrumbs'][] = $this->title;
 				<?php
 				if (($tableSchema = $generator->getTableSchema()) === false)
 				{
-					foreach ($generator->getColumnNames() as $name)
+					foreach ($generator->orderColumnsForView($generator->getColumnNames()) as $name)
 					{
+						if ( $generator->checkNotShowColumnNameInView($name) )
+						{
+							continue;
+						}
 						echo "					'" . $name . "',\n";
 					}
 				}
 				else
 				{
-					foreach ($generator->getTableSchema()->columns as $column)
+					foreach ($generator->orderColumnsForView($generator->getTableSchema()->columns) as $column)
 					{
-						$format = $generator->generateColumnFormat($column);
-						echo "					'" . $column->name . ($format === 'text' ? "" : ":" . $format) . "',\n";
+						if ( $generator->checkNotShowColumnNameInView($column->name) )
+						{
+							continue;
+						}
+						echo "					" . $generator->generateColumnDependOnNameInView($column). ",\n";
 					}
 				}
 				?>
