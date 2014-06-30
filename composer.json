@@ -8,8 +8,10 @@
 	},
 	"require": {
 		"webvimark/bootstrap-switch": "dev-master",
+		"webvimark/bootstrap-datepicker": "dev-master",
 		"webvimark/grid-bulk-actions": "dev-master",
 		"webvimark/grid-page-size": "dev-master",
+		"webvimark/ckeditor": "dev-master",
 		"webvimark/components": "dev-master"
 	}
 }
