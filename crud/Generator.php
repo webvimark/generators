@@ -83,6 +83,22 @@ class Generator extends \yii\gii\generators\crud\Generator
 	}
 
 	/**
+	 * @return bool
+	 */
+	public function hasText()
+	{
+		foreach ($this->tableSchema->columns as $column)
+		{
+			if ( $column->type == 'text' )
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
 	 * @param string $name
 	 *
 	 * @return bool

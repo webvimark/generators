@@ -26,6 +26,9 @@ use yii\helpers\ArrayHelper;
 <?php if ( $generator->hasCheckBoxes() ): ?>
 use webvimark\extensions\BootstrapSwitch\BootstrapSwitch;
 <?php endif; ?>
+<?php if ( $generator->hasText() ): ?>
+use webvimark\extensions\ckeditor\CKEditor;
+<?php endif; ?>
 
 /**
  * @var yii\web\View $this
@@ -74,4 +77,8 @@ use webvimark\extensions\BootstrapSwitch\BootstrapSwitch;
 
 <?php if ( $generator->hasCheckBoxes() ): ?>
 <?= "<?php BootstrapSwitch::widget() ?>" ?>
+<?php endif; ?>
+<?php if ( $generator->hasText() ): ?>
+
+<?= "<?php CKEditor::widget() ?>" ?>
 <?php endif; ?>
