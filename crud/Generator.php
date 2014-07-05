@@ -226,6 +226,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 				'value'=>function(\$model){
 						return Html::img(\$model->getImageUrl('small', '{$column->name}'));
 					},
+				'contentOptions'=>['width'=>'10px'],
 				'format'=>'raw',
 			]";
 	}
@@ -579,6 +580,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 		return "[
 						'attribute'=>'{$column->name}',
 						'value'=>Html::img(\$model->getImageUrl('medium', '{$column->name}')),
+						'visible'=>is_file(\$model->getImagePath('medium', '{$column->name}')),
 						'format'=>'raw',
 					]";
 	}
@@ -773,6 +775,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 	 */
 	protected function _generateImageField($column)
 	{
+
 //		return "\$form->field(\$model, '$attribute')->fileInput()";
 	}
 }

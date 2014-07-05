@@ -52,7 +52,30 @@ use webvimark\extensions\ckeditor\CKEditor;
 	if ( $generator->checkNotShowColumnNameInForm($attribute) )
 		continue;
 
-	echo "	<?= " . $generator->generateActiveField($attribute) . " ?>\n\n";
+	if ( $generator->isImage($attribute) )
+	{
+		$imageField = <<<IMG
+	<?php if ( ! \$model->isNewRecord AND is_file(\$model->getImagePath('medium', '$attribute'))): ?>
+		<div class='form-group'>
+			<div class='col-sm-3'></div>
+			<div class='col-sm-6'>
+				<?= Html::img(\$model->getImageUrl('medium', '$attribute'), ['alt'=>'$attribute']) ?>
+			</div>
+		</div>
+	<?php endif; ?>
+
+	<?= \$form->field(\$model, '$attribute', ['enableClientValidation'=>false, 'enableAjaxValidation'=>false])->fileInput(['class'=>'form-control']) ?>
+
+
+IMG;
+
+		echo $imageField;
+	}
+	else
+	{
+		echo "	<?= " . $generator->generateActiveField($attribute) . " ?>\n\n";
+	}
+
 } ?>
 	<div class="form-group">
 		<div class="col-sm-offset-3 col-sm-9">

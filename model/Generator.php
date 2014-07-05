@@ -49,6 +49,21 @@ class Generator extends \yii\gii\generators\model\Generator
 	}
 
 	/**
+	 * @param string $name
+	 *
+	 * @return bool
+	 */
+	public function isImage($name)
+	{
+		if ( strpos($name, 'image') !== false OR strpos($name, 'logo') !== false )
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
 	 * Generates the attribute labels for the specified table.
 	 *
 	 * @param \yii\db\TableSchema $table the table schema
@@ -129,24 +144,34 @@ class Generator extends \yii\gii\generators\model\Generator
 	{
 		$types   = [];
 		$lengths = [];
+		$images = [];
 		foreach ($table->columns as $column)
 		{
 			if ( $column->autoIncrement )
 			{
 				continue;
 			}
+
 			if ( !$column->allowNull && $column->defaultValue === null AND $this->requiredFields($column) )
 			{
 				$types['required'][] = $column->name;
 			}
+
 			if ( stripos($column->name, 'email') !== false )
 			{
 				$types['email'][] = $column->name;
 			}
+
 			if ( $column->name == 'url' )
 			{
 				$types['unique'][] = $column->name;
 			}
+
+			if ( $this->isImage($column->name) )
+			{
+				$images[] = $column->name;
+			}
+
 			switch ($column->type)
 			{
 				case Schema::TYPE_SMALLINT:
@@ -184,9 +209,16 @@ class Generator extends \yii\gii\generators\model\Generator
 		{
 			$rules[] = "[['" . implode("', '", $columns) . "'], '$type']";
 		}
+
 		foreach ($lengths as $length => $columns)
 		{
-			$rules[] = "[['" . implode("', '", $columns) . "'], 'string', 'max' => $length]";
+			$columnsWithoutImage = array_diff($columns, $images);
+			$rules[] = "[['" . implode("', '", $columnsWithoutImage) . "'], 'string', 'max' => $length]";
+		}
+
+		foreach ($images as $image)
+		{
+			$rules[] = "[['" . implode("', '", $images) . "'], 'image', 'maxSize' => 1024*1024*5]";
 		}
 
 		// Unique indexes rules
