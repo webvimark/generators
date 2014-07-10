@@ -30,7 +30,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 	public $modelClass = "app\\";
 	public $moduleID;
 	public $controllerClass;
-	public $baseControllerClass = 'webvimark\components\BaseController';
+	public $baseControllerClass = 'webvimark\components\AdminDefaultController';
 	public $indexWidgetType = 'grid';
 	public $searchModelClass;
 	public $indexTitle;
@@ -190,7 +190,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 
 		return "[
 				'attribute'=>'{$column->name}',
-				'filter'=>ArrayHelper::map({$refTable}::find()->all(), 'id', 'name'),
+				'filter'=>ArrayHelper::map({$refTable}::find()->asArray()->all(), 'id', 'name'),
 				'value'=>'{$relation}.name',
 			]";
 	}
@@ -713,7 +713,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 		}
 		elseif ( $column->type === 'text' )
 		{
-			return "\$form->field(\$model, '$attribute')->textarea(['rows' => 6])";
+			return "\$form->field(\$model, '$attribute', ['enableClientValidation'=>false, 'enableAjaxValidation'=>false])->textarea(['rows' => 6])";
 		}
 		elseif ( $this->isImage($column->name) )
 		{
@@ -727,7 +727,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 		{
 			return "\$form->field(\$model, '$attribute')
 		->dropDownList(
-			ArrayHelper::map(".Inflector::id2camel(rtrim($attribute, '_id'), '_')."::find()->all(), 'id', 'name'),
+			ArrayHelper::map(".Inflector::id2camel(rtrim($attribute, '_id'), '_')."::find()->asArray()->all(), 'id', 'name'),
 			['prompt'=>'']
 		)";
 		}
