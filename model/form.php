@@ -4,6 +4,13 @@
  * @var yii\widgets\ActiveForm $form
  * @var yii\gii\generators\form\Generator $generator
  */
+$attributes = ['tableName', 'modelClass', 'ns'];
+
+foreach ($attributes as $attribute)
+{
+	if ( Yii::$app->request->get($attribute) )
+		$generator->$attribute = Yii::$app->request->get($attribute);
+}
 
 echo $form->field($generator, 'tableName');
 echo $form->field($generator, 'modelClass');
@@ -17,17 +24,14 @@ echo $form->field($generator, 'enableI18N')->checkbox();
 echo $form->field($generator, 'messageCategory');
 ?>
 
-<script type="text/javascript">
-	/*<![CDATA[*/
+<?php
+$js = <<<JS
+	$('#generator-tablename').on('keyup change', function(){
+		var str = $(this).val();
+		var f = str.charAt(0).toUpperCase();
 
-	$(function () {
-		$('#generator-tablename').on('keyup change', function(){
-			var str = $(this).val();
-			var f = str.charAt(0).toUpperCase();
-
-			$('#generator-modelclass').val(f + str.substr(1));
-		});
+		$('#generator-modelclass').val(f + str.substr(1));
 	});
-
-	/*]]>*/
-</script>
+JS;
+$this->registerJs($js);
+?>

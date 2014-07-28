@@ -111,4 +111,13 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
 		return parent::beforeValidate();
 	}
 <?php endif; ?>
+<?php if ( $generator->hasImages($tableSchema) ): ?>
+
+	public function afterDelete()
+	{
+		$this->bulkDeleteImages(['<?= implode(", '", $generator->getAllImageNames($tableSchema)) ?>']);
+
+		parent::afterDelete();
+	}
+<?php endif; ?>
 }

@@ -6,7 +6,7 @@ use yii\helpers\StringHelper;
  * This is the template for generating CRUD search class of the specified model.
  *
  * @var yii\web\View $this
- * @var app\webvimark\generators\crud\Generator $generator
+ * @var \webvimark\generators\crud\Generator $generator
  */
 
 $modelClass = StringHelper::basename($generator->modelClass);
@@ -55,12 +55,12 @@ class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $m
 <?php if ( in_array('sorter', $generator->tableSchema->columnNames) ): ?>
 		if ( ! \Yii::$app->request->get('sort') )
 		{
-			$query->orderBy('sorter');
+			$query->orderBy('<?= $generator->tableSchema->name ?>.sorter');
 		}
 
 <?php endif; ?>
 <?php if ( $generator->tableSchema->foreignKeys ): ?>
-		$query->with = ['<?= implode('\', \'', $generator->getRelationRefs()) ?>'];
+		$query->joinWith(['<?= implode('\', \'', $generator->getRelationRefs()) ?>']);
 
 <?php endif; ?>
 		$dataProvider = new ActiveDataProvider([

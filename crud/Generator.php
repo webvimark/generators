@@ -647,12 +647,12 @@ class Generator extends \yii\gii\generators\crud\Generator
 				case Schema::TYPE_TIME:
 				case Schema::TYPE_DATETIME:
 				case Schema::TYPE_TIMESTAMP:
-					$hashConditions[] = "'{$column}' => \$this->{$column},";
+					$hashConditions[] = "'{$this->tableSchema->name}.{$column}' => \$this->{$column},";
 					break;
 				case Schema::TYPE_TEXT:
 					break;
 				default:
-					$likeConditions[] = "->andFilterWhere(['like', '{$column}', \$this->{$column}])";
+					$likeConditions[] = "->andFilterWhere(['like', '{$this->tableSchema->name}.{$column}', \$this->{$column}])";
 					break;
 			}
 		}
