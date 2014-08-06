@@ -103,5 +103,5 @@ IMG;
 <?php endif; ?>
 <?php if ( $generator->hasText() ): ?>
 
-<?= "<?php CKEditor::widget() ?>" ?>
+<?= "<?php CKEditor::widget(['type'=>CKEditor::TYPE_SIMPLE]) ?>" ?>
 <?php endif; ?>

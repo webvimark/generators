@@ -166,6 +166,7 @@ class Generator extends \yii\gii\generators\model\Generator
 			'is_discount'       => 'Скидка',
 			'body'              => 'Текст',
 			'author'            => 'Автор',
+			'path'              => 'Путь',
 			'code'              => 'Код',
 			'class'             => 'Класс',
 			'position'          => 'Позиция',
