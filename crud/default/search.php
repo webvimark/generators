@@ -53,7 +53,7 @@ class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $m
 		$query = <?= isset($modelAlias) ? $modelAlias : $modelClass ?>::find();
 
 <?php if ( in_array('sorter', $generator->tableSchema->columnNames) ): ?>
-		if ( ! \Yii::$app->request->get('sort') )
+		if ( ! Yii::$app->request->get('sort') )
 		{
 			$query->orderBy('<?= $generator->tableSchema->name ?>.sorter');
 		}
@@ -66,7 +66,7 @@ class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $m
 		$dataProvider = new ActiveDataProvider([
 			'query' => $query,
 			'pagination' => [
-				'pageSize' => \Yii::$app->request->cookies->getValue('_grid_page_size', 20),
+				'pageSize' => Yii::$app->request->cookies->getValue('_grid_page_size', 20),
 			],
 			'sort'=>[
 				'defaultOrder'=>['id'=> SORT_DESC],
