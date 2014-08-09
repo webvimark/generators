@@ -11,6 +11,7 @@
 		"webvimark/grid-bulk-actions": "dev-master",
 		"webvimark/grid-page-size": "dev-master",
 		"webvimark/ckeditor": "dev-master",
+		"webvimark/helpers": "dev-master",
 		"webvimark/components": "dev-master"
 	}
 }

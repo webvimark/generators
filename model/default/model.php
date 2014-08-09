@@ -18,7 +18,9 @@ echo "<?php\n";
 namespace <?= $generator->ns ?>;
 
 use Yii;
-use yii\helpers\Inflector;
+<?php if ( isset($tableSchema->columns['url']) ): ?>
+use webvimark\helpers\LittleBigHelper;
+<?php endif; ?>
 <?php if ( in_array('created_at', $tableSchema->columnNames) ): ?>
 use yii\behaviors\TimestampBehavior;
 <?php endif; ?>
@@ -106,7 +108,7 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
 	*/
 	public function beforeValidate()
 	{
-		$this->url = $this->url ? $this->url : Inflector::slug($this->name);
+		$this->url = $this->url ? $this->url : LittleBigHelper::slug($this->name);
 
 		return parent::beforeValidate();
 	}
