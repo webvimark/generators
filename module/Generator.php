@@ -41,4 +41,21 @@ class Generator extends \yii\gii\generators\module\Generator
 		return 'This generator helps you to generate the skeleton code needed by a Yii module.';
 	}
 
+	/**
+	 * @inheritdoc
+	 */
+	public function save($files, $answers, &$results)
+	{
+		// If there are not errors - create "models" and "search" folders
+		if ( ! parent::save($files, $answers, $results) )
+		{
+			$modelsDir = $this->getModulePath() . '/models';
+			$searchDir = $modelsDir . '/search';
+
+			mkdir($searchDir, 0777, true);
+
+			chmod($modelsDir, 0777);
+			chmod($searchDir, 0777);
+		}
+	}
 }
