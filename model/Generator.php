@@ -273,7 +273,7 @@ class Generator extends \yii\gii\generators\model\Generator
 			foreach ($uniqueIndexes as $uniqueColumns)
 			{
 				// Avoid validating auto incremental columns
-				if ( !$this->isColumnAutoIncremental($table, $uniqueColumns) )
+				if ( !$this->isColumnAutoIncremental($table, $uniqueColumns) AND $uniqueColumns[0] != 'url' )
 				{
 					$attributesCount = count($uniqueColumns);
 
