@@ -172,6 +172,7 @@ class Generator extends \yii\gii\generators\model\Generator
 			'class'             => 'Класс',
 			'position'          => 'Позиция',
 			'options'           => 'Опции',
+			'preview'           => 'Превью',
 		];
 
 		return isset($t[$columnName]) ? $t[$columnName] : false;
