@@ -3,7 +3,7 @@
  * This is the template for generating a module class file.
  *
  * @var yii\web\View $this
- * @var yii\gii\generators\module\Generator $generator
+ * @var webvimark\generators\module\Generator $generator
  */
 $className = $generator->moduleClass;
 $pos = strrpos($className, '\\');
@@ -23,6 +23,24 @@ class <?= $className ?> extends \yii\base\Module
 	{
 		parent::init();
 
-		// custom initialization code goes here
+		// $this->registerTranslations();
+	}
+
+
+	public function registerTranslations()
+	{
+		Yii::$app->i18n->translations['modules/<?= $className ?>/*'] = [
+			'class'          => 'yii\i18n\PhpMessageSource',
+			'sourceLanguage' => 'ru',
+			'basePath'       => '@app/modules/<?= $className ?>/messages',
+			'fileMap'        => [
+				'modules/<?= $className ?>/front' => 'front.php',
+			],
+		];
+	}
+
+	public static function t($category, $message, $params = [], $language = null)
+	{
+		return Yii::t('modules/<?= $className ?>/' . $category, $message, $params, $language);
 	}
 }

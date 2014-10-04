@@ -7,10 +7,7 @@
 
 namespace webvimark\generators\module;
 
-use yii\gii\CodeFile;
-use yii\helpers\Html;
 use Yii;
-use yii\helpers\StringHelper;
 
 /**
  * This generator will generate the skeleton code needed by a module.
@@ -42,6 +39,8 @@ class Generator extends \yii\gii\generators\module\Generator
 	}
 
 	/**
+	 * Create also "search" and "messages" folders. Also create "messages/config.php"
+	 *
 	 * @inheritdoc
 	 */
 	public function save($files, $answers, &$results)
@@ -56,6 +55,24 @@ class Generator extends \yii\gii\generators\module\Generator
 
 			chmod($modelsDir, 0777);
 			chmod($searchDir, 0777);
+
+			$this->createMessagesConfig();
 		}
+	}
+
+	/**
+	 * Create "messages" directory and config for translations in it
+	 */
+	protected function createMessagesConfig()
+	{
+		$messagesDir = $this->getModulePath() . '/messages';
+
+		mkdir($messagesDir, 0777, true);
+		chmod($messagesDir, 0777);
+
+		$configFile = $messagesDir . '/config.php';
+
+		file_put_contents($configFile, $this->render('config.php'));
+		chmod($configFile, 0766);
 	}
 }
