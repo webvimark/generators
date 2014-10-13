@@ -263,7 +263,7 @@ class Generator extends \yii\gii\generators\model\Generator
 
 		foreach ($images as $image)
 		{
-			$rules[] = "[['" . implode("', '", $images) . "'], 'image', 'maxSize' => 1024*1024*5]";
+			$rules[] = "[['" . implode("', '", $images) . "'], 'image', 'maxSize' => 1024*1024*5, 'extensions' => ['gif', 'png', 'jpg', 'jpeg']]";
 		}
 
 		// Unique indexes rules
