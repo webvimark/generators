@@ -434,7 +434,8 @@ class Generator extends \yii\gii\generators\model\Generator
 		$message .= Html::a(
 			'Generate CRUD',
 			[
-				'/gii/1',
+				'/gii/default/view',
+				'id'=>1,
 				'modelClass'=>$this->ns . '\\' . $this->modelClass,
 			],
 			['target'=>'_blank']
