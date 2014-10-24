@@ -26,31 +26,36 @@ echo $form->field($generator, 'indexWidgetType')->dropDownList([
 ]);
 echo $form->field($generator, 'enableI18N')->checkbox();
 echo $form->field($generator, 'messageCategory');
+echo $form->field($generator, 'tPrefix');
 ?>
 
 <?php
 $js = <<<JS
+	$('form #generator-enablei18n').change(function () {
+                $('form .field-generator-tprefix').toggle($(this).is(':checked'));
+            }).change();
+
 	var modelClass = $('#generator-modelclass');
-		var searchModelClass = $('#generator-searchmodelclass');
-		var controllerClass = $('#generator-controllerclass');
-		var moduleId = $('#generator-moduleid');
+	var searchModelClass = $('#generator-searchmodelclass');
+	var controllerClass = $('#generator-controllerclass');
+	var moduleId = $('#generator-moduleid');
 
-		$(modelClass).on('keyup change blur', function () {
-			var nameAndPath = $(this).val().split('\\\');
+	$(modelClass).on('keyup change blur', function () {
+		var nameAndPath = $(this).val().split('\\\');
 
-			nameAndPath.forEach(function(part, i){
-				if ( part == 'modules' )
-				{
-					moduleId.val(nameAndPath[i+1]);
-				}
-			});
-
-			var name = nameAndPath.pop();
-			var path = nameAndPath.join('\\\');
-
-			searchModelClass.val(path + '\\\search\\\' + name + 'Search');
-			controllerClass.val(path.replace('models', 'controllers') + '\\\' + name + 'Controller');
+		nameAndPath.forEach(function(part, i){
+			if ( part == 'modules' )
+			{
+				moduleId.val(nameAndPath[i+1]);
+			}
 		});
+
+		var name = nameAndPath.pop();
+		var path = nameAndPath.join('\\\');
+
+		searchModelClass.val(path + '\\\search\\\' + name + 'Search');
+		controllerClass.val(path.replace('models', 'controllers') + '\\\' + name + 'Controller');
+	});
 JS;
 $this->registerJs($js);
 ?>

@@ -36,6 +36,9 @@ class Generator extends \yii\gii\generators\crud\Generator
 	public $indexTitle;
 	public $createUpdateTitle;
 
+	public $messageCategory = 'common';
+	public $tPrefix = 'Yii';
+
 	public function getName()
 	{
 		return '------ CRUD';
@@ -47,7 +50,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 	public function rules()
 	{
 		return array_merge(parent::rules(), [
-			[['indexTitle', 'createUpdateTitle'], 'filter', 'filter' => 'trim'],
+			[['indexTitle', 'createUpdateTitle', 'tPrefix'], 'filter', 'filter' => 'trim'],
 			[['indexTitle', 'createUpdateTitle'], 'required'],
 		]);
 	}
@@ -59,9 +62,17 @@ class Generator extends \yii\gii\generators\crud\Generator
 	public function hints()
 	{
 		return array_merge(parent::hints(), [
+			'tPrefix' => 'For example <code>PageModule</code>',
 			'indexTitle' => 'Title for the index page',
 			'createUpdateTitle' => 'Title for the create and update pages <code>Создание бла-бла-бла</code> или <code>Редактирование бла-бла-бла</code>',
 		]);
+	}
+	/**
+	 * @inheritdoc
+	 */
+	public function stickyAttributes()
+	{
+		return array_merge(parent::stickyAttributes(), ['baseControllerClass', 'moduleID', 'indexWidgetType', 'tPrefix']);
 	}
 
 	/**
@@ -777,5 +788,39 @@ class Generator extends \yii\gii\generators\crud\Generator
 	{
 
 //		return "\$form->field(\$model, '$attribute')->fileInput()";
+	}
+
+	/**
+	 * Generates a string depending on enableI18N property
+	 *
+	 * @param string $string the text be generated
+	 * @param array $placeholders the placeholders to use by `Yii::t()`
+	 * @return string
+	 */
+	public function generateString($string = '', $placeholders = [])
+	{
+		$string = addslashes($string);
+		if ($this->enableI18N) {
+			// If there are placeholders, use them
+			if (!empty($placeholders)) {
+				$ph = ', ' . VarDumper::export($placeholders);
+			} else {
+				$ph = '';
+			}
+			$str = "Yii::t('" . $this->messageCategory . "', '" . $string . "'" . $ph . ")";
+		} else {
+			// No I18N, replace placeholders by real words, if any
+			if (!empty($placeholders)) {
+				$phKeys = array_map(function($word) {
+					return '{' . $word . '}';
+				}, array_keys($placeholders));
+				$phValues = array_values($placeholders);
+				$str = "'" . str_replace($phKeys, $phValues, $string) . "'";
+			} else {
+				// No placeholders, just the given string
+				$str = "'" . $string . "'";
+			}
+		}
+		return $str;
 	}
 }
