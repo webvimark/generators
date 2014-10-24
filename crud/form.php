@@ -31,9 +31,15 @@ echo $form->field($generator, 'tPrefix');
 
 <?php
 $js = <<<JS
-	$('form #generator-enablei18n').change(function () {
-                $('form .field-generator-tprefix').toggle($(this).is(':checked'));
-            }).change();
+
+	var tPrefix = $('form .field-generator-tprefix');
+	var I18NCheckbox = $('form #generator-enablei18n');
+
+	tPrefix.toggle(I18NCheckbox.is(':checked'));
+
+	I18NCheckbox.on('change', function () {
+                tPrefix.toggle($(this).is(':checked'));
+            });
 
 	var modelClass = $('#generator-modelclass');
 	var searchModelClass = $('#generator-searchmodelclass');

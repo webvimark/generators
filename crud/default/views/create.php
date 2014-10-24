@@ -18,7 +18,7 @@ use yii\helpers\Html;
  * @var <?= ltrim($generator->modelClass, '\\') ?> $model
  */
 
-$this->title = <?= $generator->generateString('Создание {modelClass}', ['modelClass' => $generator->createUpdateTitle]) ?>;
+$this->title = <?= $generator->generateString('Создание ' . $generator->createUpdateTitle) ?>;
 $this->params['breadcrumbs'][] = ['label' => <?= $generator->generateString($generator->indexTitle) ?>, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

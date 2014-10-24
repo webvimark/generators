@@ -53,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			<div class="row">
 				<div class="col-sm-6">
 					<p>
-						<?= "<?= " ?>Html::a('<span class="glyphicon glyphicon-plus-sign"></span> ' . <?= $generator->generateString('Создать') ?>, ['create'], ['class' => 'btn btn-sm btn-success']) ?>
+						<?= "<?= " ?>Html::a('<span class="glyphicon glyphicon-plus-sign"></span> ' . Yii::t('common', 'Create'), ['create'], ['class' => 'btn btn-sm btn-success']) ?>
 					</p>
 				</div>
 

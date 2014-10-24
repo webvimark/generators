@@ -36,7 +36,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 	public $indexTitle;
 	public $createUpdateTitle;
 
-	public $messageCategory = 'common';
+	public $messageCategory = 'app';
 	public $tPrefix = 'Yii';
 
 	public function getName()
@@ -807,7 +807,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 			} else {
 				$ph = '';
 			}
-			$str = "Yii::t('" . $this->messageCategory . "', '" . $string . "'" . $ph . ")";
+			$str = $this->tPrefix . "::t('" . $this->messageCategory . "', '" . $string . "'" . $ph . ")";
 		} else {
 			// No I18N, replace placeholders by real words, if any
 			if (!empty($placeholders)) {

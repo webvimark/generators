@@ -20,10 +20,10 @@ use yii\helpers\Html;
  * @var <?= ltrim($generator->modelClass, '\\') ?> $model
  */
 
-$this->title = <?= $generator->generateString('Редактирование {modelClass}: ', ['modelClass' => $generator->createUpdateTitle]) ?> . ' ' . $model-><?= $generator->getNameAttribute() ?>;
+$this->title = <?= $generator->generateString('Редактирование '.$generator->createUpdateTitle) ?> . ': ' . $model-><?= $generator->getNameAttribute() ?>;
 $this->params['breadcrumbs'][] = ['label' => <?= $generator->generateString($generator->indexTitle) ?>, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model-><?= $generator->getNameAttribute() ?>, 'url' => ['view', <?= $urlParams ?>]];
-$this->params['breadcrumbs'][] = <?= $generator->generateString('Редактирование') ?>;
+$this->params['breadcrumbs'][] = Yii::t('common', 'Editing')
 ?>
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-update">
 
