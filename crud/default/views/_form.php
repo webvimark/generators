@@ -81,12 +81,12 @@ IMG;
 		<div class="col-sm-offset-3 col-sm-9">
 			<?= "<?php if ( \$model->isNewRecord ): ?>
 				<?= Html::submitButton(
-					'<span class=\"glyphicon glyphicon-plus-sign\"></span> ' . Yii::t('common', 'Create'),
+					'<span class=\"glyphicon glyphicon-plus-sign\"></span> ' . Yii::t('app', 'Create'),
 					['class' => 'btn btn-success']
 				) ?>
 			<?php else: ?>
 				<?= Html::submitButton(
-					'<span class=\"glyphicon glyphicon-ok\"></span> ' . Yii::t('common', 'Save'),
+					'<span class=\"glyphicon glyphicon-ok\"></span> ' . Yii::t('app', 'Save'),
 					['class' => 'btn btn-primary']
 				) ?>
 			<?php endif; ?>" ?>

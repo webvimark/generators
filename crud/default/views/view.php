@@ -38,12 +38,12 @@ $this->params['breadcrumbs'][] = $this->title;
 		<div class="panel-body">
 
 			<p>
-				<?= "<?= " ?>Html::a(Yii::t('common', 'Edit'), ['update', <?= $urlParams ?>], ['class' => 'btn btn-sm btn-primary']) ?>
-				<?= "<?= " ?>Html::a(Yii::t('common', 'Create') ?>, ['create'], ['class' => 'btn btn-sm btn-success']) ?>
-				<?= "<?= " ?>Html::a(Yii::t('common', 'Delete') ?>, ['delete', <?= $urlParams ?>], [
+				<?= "<?= " ?>Html::a(Yii::t('app', 'Edit'), ['update', <?= $urlParams ?>], ['class' => 'btn btn-sm btn-primary']) ?>
+				<?= "<?= " ?>Html::a(Yii::t('app', 'Create') ?>, ['create'], ['class' => 'btn btn-sm btn-success']) ?>
+				<?= "<?= " ?>Html::a(Yii::t('app', 'Delete') ?>, ['delete', <?= $urlParams ?>], [
 					'class' => 'btn btn-sm btn-danger pull-right',
 					'data' => [
-						'confirm' => Yii::t('common', 'Are you sure you want to delete this item?'),
+						'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
 						'method' => 'post',
 					],
 				]) ?>

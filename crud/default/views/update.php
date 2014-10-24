@@ -23,7 +23,7 @@ use yii\helpers\Html;
 $this->title = <?= $generator->generateString('Редактирование '.$generator->createUpdateTitle) ?> . ': ' . $model-><?= $generator->getNameAttribute() ?>;
 $this->params['breadcrumbs'][] = ['label' => <?= $generator->generateString($generator->indexTitle) ?>, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model-><?= $generator->getNameAttribute() ?>, 'url' => ['view', <?= $urlParams ?>]];
-$this->params['breadcrumbs'][] = Yii::t('common', 'Editing')
+$this->params['breadcrumbs'][] = Yii::t('app', 'Editing')
 ?>
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-update">
 
