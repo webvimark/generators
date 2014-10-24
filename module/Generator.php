@@ -8,6 +8,8 @@
 namespace webvimark\generators\module;
 
 use Yii;
+use yii\gii\CodeFile;
+use yii\helpers\StringHelper;
 
 /**
  * This generator will generate the skeleton code needed by a module.
@@ -39,6 +41,43 @@ class Generator extends \yii\gii\generators\module\Generator
 	}
 
 	/**
+	 * @inheritdoc
+	 */
+	public function requiredTemplates()
+	{
+		return ['module.php', 'controller.php', 'view.php', 'config.php'];
+	}
+
+	/**
+	 * Generate also message config and message folder
+	 *
+	 * @inheritdoc
+	 */
+	public function generate()
+	{
+		$files = [];
+		$modulePath = $this->getModulePath();
+		$files[] = new CodeFile(
+			$modulePath . '/' . StringHelper::basename($this->moduleClass) . '.php',
+			$this->render("module.php")
+		);
+		$files[] = new CodeFile(
+			$modulePath . '/controllers/DefaultController.php',
+			$this->render("controller.php")
+		);
+		$files[] = new CodeFile(
+			$modulePath . '/views/default/index.php',
+			$this->render("view.php")
+		);
+		$files[] = new CodeFile(
+			$modulePath . '/messages/config.php',
+			$this->render("config.php")
+		);
+
+		return $files;
+	}
+
+	/**
 	 * Create also "search" and "messages" folders. Also create "messages/config.php"
 	 *
 	 * @inheritdoc
@@ -46,7 +85,7 @@ class Generator extends \yii\gii\generators\module\Generator
 	public function save($files, $answers, &$results)
 	{
 		// If there are not errors - create "models" and "search" folders
-		if ( ! parent::save($files, $answers, $results) )
+		if ( parent::save($files, $answers, $results) )
 		{
 			$modelsDir = $this->getModulePath() . '/models';
 			$searchDir = $modelsDir . '/search';
@@ -56,23 +95,10 @@ class Generator extends \yii\gii\generators\module\Generator
 			chmod($modelsDir, 0777);
 			chmod($searchDir, 0777);
 
-			$this->createMessagesConfig();
+			return true;
 		}
+
+		return false;
 	}
 
-	/**
-	 * Create "messages" directory and config for translations in it
-	 */
-	protected function createMessagesConfig()
-	{
-		$messagesDir = $this->getModulePath() . '/messages';
-
-		mkdir($messagesDir, 0777, true);
-		chmod($messagesDir, 0777);
-
-		$configFile = $messagesDir . '/config.php';
-
-		file_put_contents($configFile, $this->render('config.php'));
-		chmod($configFile, 0766);
-	}
 }
