@@ -39,8 +39,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
 			<p>
 				<?= "<?= " ?>Html::a(Yii::t('app', 'Edit'), ['update', <?= $urlParams ?>], ['class' => 'btn btn-sm btn-primary']) ?>
-				<?= "<?= " ?>Html::a(Yii::t('app', 'Create') ?>, ['create'], ['class' => 'btn btn-sm btn-success']) ?>
-				<?= "<?= " ?>Html::a(Yii::t('app', 'Delete') ?>, ['delete', <?= $urlParams ?>], [
+				<?= "<?= " ?>Html::a(Yii::t('app', 'Create'), ['create'], ['class' => 'btn btn-sm btn-success']) ?>
+				<?= "<?= " ?>Html::a(Yii::t('app', 'Delete'), ['delete', <?= $urlParams ?>], [
 					'class' => 'btn btn-sm btn-danger pull-right',
 					'data' => [
 						'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),

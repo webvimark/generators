@@ -122,10 +122,10 @@ class Generator extends \yii\gii\generators\model\Generator
 			{
 				$labels[$column->name] = 'ID';
 			}
-			elseif ( $this->russianLabels($column->name) )
-			{
-				$labels[$column->name] = $this->russianLabels($column->name);
-			}
+//			elseif ( $this->russianLabels($column->name) )
+//			{
+//				$labels[$column->name] = $this->russianLabels($column->name);
+//			}
 			else
 			{
 				$label = Inflector::camel2words($column->name);
@@ -192,7 +192,7 @@ class Generator extends \yii\gii\generators\model\Generator
 		$images = [];
 		foreach ($table->columns as $column)
 		{
-			if ( $column->autoIncrement )
+			if ( $column->autoIncrement OR in_array($column->name, ['created_at', 'updated_at']) )
 			{
 				continue;
 			}
