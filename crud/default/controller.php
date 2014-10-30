@@ -37,7 +37,6 @@ use <?= ltrim($generator->searchModelClass, '\\') . (isset($searchModelAlias) ? 
 use yii\data\ActiveDataProvider;
 <?php endif; ?>
 use <?= ltrim($generator->baseControllerClass, '\\') ?>;
-use yii\filters\VerbFilter;
 
 /**
  * <?= $controllerClass ?> implements the CRUD actions for <?= $modelClass ?> model.
@@ -56,15 +55,8 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
 	 */
 	public $modelSearchClass = '<?= ltrim($generator->searchModelClass, '\\') . (isset($searchModelAlias) ? " as $searchModelAlias" : "") ?>';
 
-	public function behaviors()
-	{
-		return [
-			'verbs' => [
-				'class' => VerbFilter::className(),
-				'actions' => [
-					'delete' => ['post'],
-				],
-			],
-		];
-	}
+	/**
+	* @var string
+	*/
+	public $layout = '<?= $generator->layout ?>';
 }

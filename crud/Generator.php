@@ -28,6 +28,7 @@ use yii\helpers\VarDumper;
 class Generator extends \yii\gii\generators\crud\Generator
 {
 	public $modelClass = "app\\";
+	public $layout = "//back";
 	public $moduleID;
 	public $controllerClass;
 	public $baseControllerClass = 'webvimark\components\AdminDefaultController';
@@ -51,9 +52,9 @@ class Generator extends \yii\gii\generators\crud\Generator
 	public function rules()
 	{
 		return array_merge(parent::rules(), [
-			[['indexTitle', 'createUpdateTitle', 'tPrefix'], 'filter', 'filter' => 'trim'],
+			[['indexTitle', 'createUpdateTitle', 'tPrefix', 'layout'], 'filter', 'filter' => 'trim'],
 			['defaultLanguage', 'string'],
-			[['indexTitle', 'createUpdateTitle'], 'required'],
+			[['indexTitle', 'createUpdateTitle', 'layout'], 'required'],
 		]);
 	}
 
@@ -76,7 +77,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 	{
 		return array_merge(
 			parent::stickyAttributes(),
-			['baseControllerClass', 'moduleID', 'indexWidgetType', 'tPrefix', 'defaultLanguage']
+			['baseControllerClass', 'moduleID', 'indexWidgetType', 'tPrefix', 'defaultLanguage', 'layout']
 		);
 	}
 
