@@ -34,12 +34,35 @@ class Generator extends \yii\gii\generators\model\Generator
 	public $generateLabelsFromComments = false;
 	public $useTablePrefix = false;
 
+	public $defaultLanguage = 'ru';
+
 	/**
 	 * @inheritdoc
 	 */
 	public function getName()
 	{
 		return '------ Model Generator';
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function rules()
+	{
+		return array_merge(parent::rules(), [
+			['defaultLanguage', 'string'],
+		]);
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function stickyAttributes()
+	{
+		return array_merge(
+			parent::stickyAttributes(),
+			['defaultLanguage']
+		);
 	}
 
 	/**
@@ -122,10 +145,14 @@ class Generator extends \yii\gii\generators\model\Generator
 			{
 				$labels[$column->name] = 'ID';
 			}
-//			elseif ( $this->russianLabels($column->name) )
-//			{
-//				$labels[$column->name] = $this->russianLabels($column->name);
-//			}
+			elseif ( ( ! $this->enableI18N OR $this->defaultLanguage == 'ru') AND  $this->russianLabels($column->name) )
+			{
+				$labels[$column->name] = $this->russianLabels($column->name);
+			}
+			elseif ( in_array($column->name, ['created_at', 'updated_at']) )
+			{
+				$labels[$column->name] = Inflector::camel2words(substr($column->name, 0, -3));
+			}
 			else
 			{
 				$label = Inflector::camel2words($column->name);

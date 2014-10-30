@@ -37,6 +37,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 	public $createUpdateTitle;
 
 	public $messageCategory = 'app';
+	public $defaultLanguage = 'ru';
 	public $tPrefix = 'Yii';
 
 	public function getName()
@@ -51,6 +52,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 	{
 		return array_merge(parent::rules(), [
 			[['indexTitle', 'createUpdateTitle', 'tPrefix'], 'filter', 'filter' => 'trim'],
+			['defaultLanguage', 'string'],
 			[['indexTitle', 'createUpdateTitle'], 'required'],
 		]);
 	}
@@ -72,7 +74,10 @@ class Generator extends \yii\gii\generators\crud\Generator
 	 */
 	public function stickyAttributes()
 	{
-		return array_merge(parent::stickyAttributes(), ['baseControllerClass', 'moduleID', 'indexWidgetType', 'tPrefix']);
+		return array_merge(
+			parent::stickyAttributes(),
+			['baseControllerClass', 'moduleID', 'indexWidgetType', 'tPrefix', 'defaultLanguage']
+		);
 	}
 
 	/**
