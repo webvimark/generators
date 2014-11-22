@@ -12,6 +12,7 @@
 		"webvimark/grid-page-size": "dev-master",
 		"webvimark/ckeditor": "dev-master",
 		"webvimark/helpers": "dev-master",
+		"webvimark/date-range-picker": "dev-master",
 		"webvimark/components": "dev-master"
 	}
 }
