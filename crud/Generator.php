@@ -829,4 +829,55 @@ class Generator extends \yii\gii\generators\crud\Generator
 		}
 		return $str;
 	}
+
+	/**
+	 * Created_at and updated_at now safe attributes (for date range picker)
+	 *
+	 * Generates validation rules for the search model.
+	 * @return array the generated validation rules
+	 */
+	public function generateSearchRules()
+	{
+		if (($table = $this->getTableSchema()) === false) {
+			return ["[['" . implode("', '", $this->getColumnNames()) . "'], 'safe']"];
+		}
+		$types = [];
+		foreach ($table->columns as $column) {
+			if ( in_array($column->name, ['created_at', 'updated_at']) )
+			{
+				$types['safe'][] = $column->name;
+				continue;
+			}
+
+			switch ($column->type) {
+				case Schema::TYPE_SMALLINT:
+				case Schema::TYPE_INTEGER:
+				case Schema::TYPE_BIGINT:
+					$types['integer'][] = $column->name;
+					break;
+				case Schema::TYPE_BOOLEAN:
+					$types['boolean'][] = $column->name;
+					break;
+				case Schema::TYPE_FLOAT:
+				case Schema::TYPE_DECIMAL:
+				case Schema::TYPE_MONEY:
+					$types['number'][] = $column->name;
+					break;
+				case Schema::TYPE_DATE:
+				case Schema::TYPE_TIME:
+				case Schema::TYPE_DATETIME:
+				case Schema::TYPE_TIMESTAMP:
+				default:
+					$types['safe'][] = $column->name;
+					break;
+			}
+		}
+
+		$rules = [];
+		foreach ($types as $type => $columns) {
+			$rules[] = "[['" . implode("', '", $columns) . "'], '$type']";
+		}
+
+		return $rules;
+	}
 }
