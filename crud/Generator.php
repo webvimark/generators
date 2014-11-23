@@ -646,7 +646,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 		$hashConditions = [];
 		foreach ($columns as $column => $type)
 		{
-			if ( strpos($column, 'image') !== false )
+			if ( strpos($column, 'image') !== false OR in_array($column, ['created_at', 'updated_at']) )
 			{
 				continue;
 			}
