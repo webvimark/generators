@@ -286,7 +286,7 @@ class Generator extends \yii\gii\generators\model\Generator
 		{
 			$columnsWithoutImage = array_diff($columns, $images);
 			$rules[] = "[['" . implode("', '", $columnsWithoutImage) . "'], 'string', 'max' => $length]";
-			$rules[] = "[['" . implode("', '", $columnsWithoutImage) . "'], 'filter', 'filter' => 'trim']";
+			$rules[] = "[['" . implode("', '", $columnsWithoutImage) . "'], 'trim']";
 		}
 
 		if ( $images )
