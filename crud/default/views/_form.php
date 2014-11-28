@@ -41,12 +41,13 @@ use webvimark\extensions\ckeditor\CKEditor;
 	<?= "<?php " ?>$form = ActiveForm::begin([
 		'id'=>'<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-form',
 		'layout'=>'horizontal',
+		'validateOnBlur'=>false,
 	<?php if ( $generator->hasImages() ): ?>
 		'options'=>[
 			'enctype'=>"multipart/form-data",
 		]
 	<?php endif; ?>
-	]); ?>
+]); ?>
 
 <?php foreach ($generator->orderAttributesForForm($safeAttributes) as $attribute) {
 	if ( $generator->checkNotShowColumnNameInForm($attribute) )
@@ -91,6 +92,7 @@ IMG;
 				) ?>
 			<?php endif; ?>" ?>
 
+			<?= "<?= Html::a(Yii::t('app', 'Cancel'), ['index'], ['class'=>'btn btn-default']) ?>" ?>
 		</div>
 	</div>
 

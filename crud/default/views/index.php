@@ -38,27 +38,17 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php endif; ?>
 
 	<div class="panel panel-default">
-		<div class="panel-heading">
-			<strong>
-				<span class="glyphicon glyphicon-th"></span>  <?= "<?= Html::encode(\$this->title) ?>" ?>
-
-			</strong>
-
-			<?= "<?= GridPageSize::widget(['pjaxId'=>'".Inflector::camel2id(StringHelper::basename($generator->modelClass))."-grid-pjax']) ?>" ?>
-
-		</div>
-
 		<div class="panel-body">
 
 			<div class="row">
-				<div class="col-sm-6">
+				<div class="col-xs-6">
 					<p>
-						<?= "<?= " ?>Html::a('<span class="glyphicon glyphicon-plus-sign"></span> ' . Yii::t('app', 'Create'), ['create'], ['class' => 'btn btn-sm btn-success']) ?>
+						<?= "<?= " ?>Html::a('<span class="glyphicon glyphicon-plus-sign"></span> ' . Yii::t('app', 'Create'), ['create'], ['class' => 'btn btn-success']) ?>
 					</p>
 				</div>
 
-				<div class="col-sm-6 text-right">
-					<?= "<?= GridBulkActions::widget(['gridId'=>'".Inflector::camel2id(StringHelper::basename($generator->modelClass))."-grid']) ?>" ?>
+				<div class="col-xs-6 text-right">
+					<?= "<?= GridPageSize::widget(['pjaxId'=>'".Inflector::camel2id(StringHelper::basename($generator->modelClass))."-grid-pjax']) ?>" ?>
 
 				</div>
 			</div>
@@ -79,8 +69,10 @@ $this->params['breadcrumbs'][] = $this->title;
 					'lastPageLabel'=>'>>',
 					'firstPageLabel'=>'<<',
 				],
-				'layout'=>'{items}<div class="row"><div class="col-sm-8">{pager}</div><div class="col-sm-4 text-right">{summary}</div></div>',
-				<?= !empty($generator->searchModelClass) ? "'filterModel' => \$searchModel,\n				'columns' => [\n" : "'columns' => [\n"; ?>
+
+				'layout'=>'{items}<div class="row"><div class="col-sm-8">{pager}</div><div class="col-sm-4 text-right">{summary}'.GridBulkActions::widget(['gridId'=>'<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>grid']).'</div></div>',
+
+			<?= !empty($generator->searchModelClass) ? "'filterModel' => \$searchModel,\n				'columns' => [\n" : "'columns' => [\n"; ?>
 					['class' => 'yii\grid\SerialColumn', 'options'=>['style'=>'width:10px'] ],
 
 		<?php

@@ -29,11 +29,6 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Editing')
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-update">
 
 	<div class="panel panel-default">
-		<div class="panel-heading">
-			<strong>
-				<span class="glyphicon glyphicon-th"></span> <?= "<?= " ?>Html::encode($this->title) ?>
-			</strong>
-		</div>
 		<div class="panel-body">
 
 			<?= "<?= \$this->render('_form', compact('model')) ?>" ?>
