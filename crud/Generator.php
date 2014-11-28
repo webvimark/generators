@@ -581,8 +581,8 @@ class Generator extends \yii\gii\generators\crud\Generator
 		return "[
 						'attribute'=>'{$column->name}',
 						'value'=>(\$model->{$column->name} == 1) ?
-								'<span class=\"label label-success\">Да</span>' :
-								'<span class=\"label label-warning\">Нет</span>',
+								'<span class=\"label label-success\">'.Yii::t('yii', 'Yes').'</span>' :
+								'<span class=\"label label-warning\">'.Yii::t('yii', 'No').'</span>',
 						'format'=>'raw',
 					]";
 	}

@@ -9,6 +9,7 @@ use yii\helpers\StringHelper;
  */
 
 $urlParams = $generator->generateUrlParams();
+$viewTitleStart = ( ! $generator->enableI18N OR $generator->defaultLanguage == 'ru') ? 'Детали ' : 'Details of the ';
 
 echo "<?php\n";
 ?>
@@ -21,7 +22,7 @@ use yii\widgets\DetailView;
  * @var <?= ltrim($generator->modelClass, '\\') ?> $model
  */
 
-$this->title = $model-><?= $generator->getNameAttribute() ?>;
+$this->title = <?= $generator->generateString($viewTitleStart . $generator->createUpdateTitle) ?> . ' : ' . $model-><?= $generator->getNameAttribute() ?>;
 $this->params['breadcrumbs'][] = ['label' => <?= $generator->generateString($generator->indexTitle) ?>, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -32,12 +33,12 @@ $this->params['breadcrumbs'][] = $this->title;
 		<div class="panel-body">
 
 			<p>
-				<?= "<?= " ?>Html::a(Yii::t('app', 'Edit'), ['update', <?= $urlParams ?>], ['class' => 'btn btn-sm btn-primary']) ?>
-				<?= "<?= " ?>Html::a(Yii::t('app', 'Create'), ['create'], ['class' => 'btn btn-sm btn-success']) ?>
-				<?= "<?= " ?>Html::a(Yii::t('app', 'Delete'), ['delete', <?= $urlParams ?>], [
+				<?= "<?= " ?>Html::a(Yii::t('yii', 'Edit'), ['update', <?= $urlParams ?>], ['class' => 'btn btn-sm btn-primary']) ?>
+				<?= "<?= " ?>Html::a(Yii::t('yii', 'Create'), ['create'], ['class' => 'btn btn-sm btn-success']) ?>
+				<?= "<?= " ?>Html::a(Yii::t('yii', 'Delete'), ['delete', <?= $urlParams ?>], [
 					'class' => 'btn btn-sm btn-danger pull-right',
 					'data' => [
-						'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+						'confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
 						'method' => 'post',
 					],
 				]) ?>
