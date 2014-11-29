@@ -14,8 +14,6 @@ $updateTitleStart = ( ! $generator->enableI18N OR $generator->defaultLanguage ==
 echo "<?php\n";
 ?>
 
-use yii\helpers\Html;
-
 /**
  * @var yii\web\View $this
  * @var <?= ltrim($generator->modelClass, '\\') ?> $model

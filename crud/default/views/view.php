@@ -22,7 +22,7 @@ use yii\widgets\DetailView;
  * @var <?= ltrim($generator->modelClass, '\\') ?> $model
  */
 
-$this->title = <?= $generator->generateString($viewTitleStart . $generator->createUpdateTitle) ?> . ' : ' . $model-><?= $generator->getNameAttribute() ?>;
+$this->title = <?= $generator->generateString($viewTitleStart . $generator->createUpdateTitle) ?> . ': ' . $model-><?= $generator->getNameAttribute() ?>;
 $this->params['breadcrumbs'][] = ['label' => <?= $generator->generateString($generator->indexTitle) ?>, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -33,8 +33,8 @@ $this->params['breadcrumbs'][] = $this->title;
 		<div class="panel-body">
 
 			<p>
-				<?= "<?= " ?>Html::a(Yii::t('yii', 'Edit'), ['update', <?= $urlParams ?>], ['class' => 'btn btn-sm btn-primary']) ?>
-				<?= "<?= " ?>Html::a(Yii::t('yii', 'Create'), ['create'], ['class' => 'btn btn-sm btn-success']) ?>
+				<?= "<?= " ?>Html::a(Yii::t('app', 'Edit'), ['update', <?= $urlParams ?>], ['class' => 'btn btn-sm btn-primary']) ?>
+				<?= "<?= " ?>Html::a(Yii::t('app', 'Create'), ['create'], ['class' => 'btn btn-sm btn-success']) ?>
 				<?= "<?= " ?>Html::a(Yii::t('yii', 'Delete'), ['delete', <?= $urlParams ?>], [
 					'class' => 'btn btn-sm btn-danger pull-right',
 					'data' => [
