@@ -10,6 +10,8 @@ use yii\helpers\StringHelper;
 
 $urlParams = $generator->generateUrlParams();
 $viewTitleStart = ( ! $generator->enableI18N OR $generator->defaultLanguage == 'ru') ? 'Детали ' : 'Details of the ';
+$editBtn = ( ! $generator->enableI18N OR $generator->defaultLanguage == 'ru') ? 'Редактировать' : 'Edit';
+$createBtn = ( ! $generator->enableI18N OR $generator->defaultLanguage == 'ru') ? 'Создать' : 'Create';
 
 echo "<?php\n";
 ?>
@@ -33,8 +35,8 @@ $this->params['breadcrumbs'][] = $this->title;
 		<div class="panel-body">
 
 			<p>
-				<?= "<?= " ?>Html::a(Yii::t('app', 'Edit'), ['update', <?= $urlParams ?>], ['class' => 'btn btn-sm btn-primary']) ?>
-				<?= "<?= " ?>Html::a(Yii::t('app', 'Create'), ['create'], ['class' => 'btn btn-sm btn-success']) ?>
+				<?= "<?= " ?>Html::a(<?= $generator->generateString($editBtn) ?>, ['update', <?= $urlParams ?>], ['class' => 'btn btn-sm btn-primary']) ?>
+				<?= "<?= " ?>Html::a(<?= $generator->generateString($createBtn) ?>), ['create'], ['class' => 'btn btn-sm btn-success']) ?>
 				<?= "<?= " ?>Html::a(Yii::t('yii', 'Delete'), ['delete', <?= $urlParams ?>], [
 					'class' => 'btn btn-sm btn-danger pull-right',
 					'data' => [
