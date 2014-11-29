@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 			<p>
 				<?= "<?= " ?>Html::a(<?= $generator->generateString($editBtn) ?>, ['update', <?= $urlParams ?>], ['class' => 'btn btn-sm btn-primary']) ?>
-				<?= "<?= " ?>Html::a(<?= $generator->generateString($createBtn) ?>), ['create'], ['class' => 'btn btn-sm btn-success']) ?>
+				<?= "<?= " ?>Html::a(<?= $generator->generateString($createBtn) ?>, ['create'], ['class' => 'btn btn-sm btn-success']) ?>
 				<?= "<?= " ?>Html::a(Yii::t('yii', 'Delete'), ['delete', <?= $urlParams ?>], [
 					'class' => 'btn btn-sm btn-danger pull-right',
 					'data' => [
