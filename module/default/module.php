@@ -22,13 +22,6 @@ use Yii;
 
 class <?= $className ?> extends \yii\base\Module
 {
-	/**
-	* Helps to check if translations have been registered already
-	*
-	* @var bool
-	*/
-	protected static $_translationsRegistered = false;
-
 	public $controllerNamespace = '<?= $generator->getControllerNamespace() ?>';
 
 	/**
@@ -43,7 +36,7 @@ class <?= $className ?> extends \yii\base\Module
 	*/
 	public static function t($category, $message, $params = [], $language = null)
 	{
-		if ( !static::$_translationsRegistered )
+		if ( !isset(Yii::$app->i18n->translations['modules/<?= $moduleFolder ?>/*']) )
 		{
 			Yii::$app->i18n->translations['modules/<?= $moduleFolder ?>/*'] = [
 				'class'          => 'yii\i18n\PhpMessageSource',
@@ -53,8 +46,6 @@ class <?= $className ?> extends \yii\base\Module
 					'modules/<?= $moduleFolder ?>/app' => 'app.php',
 				],
 			];
-
-			static::$_translationsRegistered = true;
 		}
 
 		return Yii::t('modules/<?= $moduleFolder ?>/' . $category, $message, $params, $language);
