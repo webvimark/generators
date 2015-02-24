@@ -21,7 +21,6 @@ echo $form->field($generator, 'layout');
 echo $form->field($generator, 'indexTitle');
 echo $form->field($generator, 'createUpdateTitle');
 echo $form->field($generator, 'baseControllerClass');
-echo $form->field($generator, 'moduleID');
 echo $form->field($generator, 'indexWidgetType')->dropDownList([
     'grid' => 'GridView',
     'list' => 'ListView',
