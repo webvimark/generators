@@ -16,6 +16,7 @@ foreach ($attributes as $attribute)
 echo $form->field($generator, 'modelClass');
 echo $form->field($generator, 'searchModelClass');
 echo $form->field($generator, 'controllerClass');
+echo $form->field($generator, 'viewPath');
 echo $form->field($generator, 'layout');
 echo $form->field($generator, 'indexTitle');
 echo $form->field($generator, 'createUpdateTitle');
@@ -40,6 +41,7 @@ $js = <<<JS
 	var defaultLanguage = $('form .field-generator-defaultlanguage');
 	var tPrefix = $('form .field-generator-tprefix');
 	var I18NCheckbox = $('form #generator-enablei18n');
+	var viewPath = $('form #generator-viewpath');
 
 	tPrefix.toggle(I18NCheckbox.is(':checked'));
 	defaultLanguage.toggle(I18NCheckbox.is(':checked'));
@@ -66,9 +68,12 @@ $js = <<<JS
 
 		var name = nameAndPath.pop();
 		var path = nameAndPath.join('\\\');
+		var vp = nameAndPath.join('/');
 
 		searchModelClass.val(path + '\\\search\\\' + name + 'Search');
 		controllerClass.val(path.replace('models', 'controllers') + '\\\' + name + 'Controller');
+
+		viewPath.val('@' + vp.replace('models', 'views'));
 	});
 JS;
 $this->registerJs($js);
