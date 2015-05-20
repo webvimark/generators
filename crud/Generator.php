@@ -28,7 +28,7 @@ use yii\helpers\VarDumper;
 class Generator extends \yii\gii\generators\crud\Generator
 {
 	public $modelClass = "app\\";
-	public $layout = "//back";
+	public $layout = "//backend";
 	public $moduleID;
 	public $controllerClass;
 	public $baseControllerClass = 'webvimark\components\AdminDefaultController';
@@ -38,7 +38,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 	public $createUpdateTitle;
 
 	public $messageCategory = 'app';
-	public $defaultLanguage = 'ru';
+	public $defaultLanguage = 'en';
 	public $tPrefix = 'Yii';
 
 	public function getName()

@@ -15,7 +15,7 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist webvimark/generators "*"
+composer require --prefer-dist webvimark/generators "*"
 ```
 
 or add
@@ -35,13 +35,12 @@ In your config/web.php
 	$config['bootstrap'][] = 'gii';
 	$config['modules']['gii'] = [
 		'class'=>'yii\gii\Module',
-		'generators'=>[
-			'webvimark\generators\model\Generator',
-			'webvimark\generators\crud\Generator',
-			'webvimark\generators\module\Generator',
-			'webvimark\generators\controller\Generator',
-			'webvimark\generators\extension\Generator',
-		],
+		'generators' => [
+			'ybc-model'     => 'webvimark\generators\model\Generator',
+			'ybc-crud'      => 'webvimark\generators\crud\Generator',
+			'ybc-module'    => 'webvimark\generators\module\Generator',
+			'ybc-extension' => 'webvimark\generators\extension\Generator',
+		]
 	];
 ```
 

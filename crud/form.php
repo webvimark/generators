@@ -26,10 +26,6 @@ echo $form->field($generator, 'indexWidgetType')->dropDownList([
     'list' => 'ListView',
 ]);
 echo $form->field($generator, 'enableI18N')->checkbox();
-echo $form->field($generator, 'defaultLanguage')->dropDownList([
-	'ru'=>'ru',
-	'en'=>'en',
-]);
 echo $form->field($generator, 'messageCategory');
 echo $form->field($generator, 'tPrefix');
 ?>
@@ -37,17 +33,14 @@ echo $form->field($generator, 'tPrefix');
 <?php
 $js = <<<JS
 
-	var defaultLanguage = $('form .field-generator-defaultlanguage');
 	var tPrefix = $('form .field-generator-tprefix');
 	var I18NCheckbox = $('form #generator-enablei18n');
 	var viewPath = $('form #generator-viewpath');
 
 	tPrefix.toggle(I18NCheckbox.is(':checked'));
-	defaultLanguage.toggle(I18NCheckbox.is(':checked'));
 
 	I18NCheckbox.on('change', function () {
                 tPrefix.toggle($(this).is(':checked'));
-                defaultLanguage.toggle($(this).is(':checked'));
             });
 
 	var modelClass = $('#generator-modelclass');

@@ -1,0 +1,19 @@
+{
+	"name": "<?= $generator->vendorName ?>/<?= $generator->packageName ?>",
+	"autoload": {
+		"psr-4": {
+			"<?= str_replace('\\','\\\\',$generator->namespace) ?>": ""
+		}
+	},
+	"scripts": {
+		"post-package-install": [
+		    "<?= $generator->namespace ?>\YBC_<?= $generator->moduleID ?>_Installer::afterInstall"
+		],
+		"post-package-update": [
+		    "<?= $generator->namespace ?>\YBC_<?= $generator->moduleID ?>_Installer::afterUpdate"
+		],
+		"post-package-uninstall": [
+		    "<?= $generator->namespace ?>\YBC_<?= $generator->moduleID ?>_Installer::afterUninstall"
+		]
+	}
+}

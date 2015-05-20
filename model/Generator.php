@@ -8,12 +8,9 @@
 namespace webvimark\generators\model;
 
 use Yii;
-use yii\db\ActiveRecord;
 use yii\db\ColumnSchema;
-use yii\db\Connection;
 use yii\db\Schema;
 use yii\db\TableSchema;
-use yii\gii\CodeFile;
 use yii\helpers\Html;
 use yii\helpers\Inflector;
 use yii\base\NotSupportedException;
@@ -33,8 +30,13 @@ class Generator extends \yii\gii\generators\model\Generator
 	public $generateRelations = true;
 	public $generateLabelsFromComments = false;
 	public $useTablePrefix = false;
+	public $generateQuery = false;
+	public $queryNs = 'app\models';
+	public $queryClass;
+	public $queryBaseClass = 'yii\db\ActiveQuery';
 
-	public $defaultLanguage = 'ru';
+
+	public $defaultLanguage = 'en';
 
 	/**
 	 * @inheritdoc
@@ -357,7 +359,7 @@ class Generator extends \yii\gii\generators\model\Generator
 	/**
 	 * @return array the generated relation declarations
 	 */
-	protected function generateRelations()
+	protected function ___generateRelations()
 	{
 		if ( !$this->generateRelations )
 		{
@@ -389,7 +391,7 @@ class Generator extends \yii\gii\generators\model\Generator
 
 				// Add relation for this table
 				$link                                 = $this->generateRelationLink(array_flip($refs));
-				$relationName                         = $this->generateRelationName($relations, $className, $table, $fks[0], false);
+				$relationName                         = $this->generateRelationName($relations, $table, $fks[0], false);
 				$relations[$className][$relationName] = [
 					"return \$this->hasOne($refClassName::className(), $link);",
 					$refClassName,
@@ -414,7 +416,7 @@ class Generator extends \yii\gii\generators\model\Generator
 					}
 				}
 				$link                                    = $this->generateRelationLink($refs);
-				$relationName                            = $this->generateRelationName($relations, $refClassName, $refTable, $className, $hasMany);
+				$relationName                            = $this->generateRelationName($relations, $refTable, $className, $hasMany);
 				$relations[$refClassName][$relationName] = [
 					"return \$this->" . ( $hasMany ? 'hasMany' : 'hasOne' ) . "($className::className(), $link);",
 					$className,
@@ -433,7 +435,7 @@ class Generator extends \yii\gii\generators\model\Generator
 
 			$link                                  = $this->generateRelationLink([$fks[$table->primaryKey[1]][1] => $table->primaryKey[1]]);
 			$viaLink                               = $this->generateRelationLink([$table->primaryKey[0] => $fks[$table->primaryKey[0]][1]]);
-			$relationName                          = $this->generateRelationName($relations, $className0, $db->getTableSchema($table0), $table->primaryKey[1], true);
+			$relationName                          = $this->generateRelationName($relations, $db->getTableSchema($table0), $table->primaryKey[1], true);
 			$relations[$className0][$relationName] = [
 				"return \$this->hasMany($className1::className(), $link)->viaTable('{$table->name}', $viaLink);",
 				$className1,
@@ -442,7 +444,7 @@ class Generator extends \yii\gii\generators\model\Generator
 
 			$link                                  = $this->generateRelationLink([$fks[$table->primaryKey[0]][1] => $table->primaryKey[0]]);
 			$viaLink                               = $this->generateRelationLink([$table->primaryKey[1] => $fks[$table->primaryKey[1]][1]]);
-			$relationName                          = $this->generateRelationName($relations, $className1, $db->getTableSchema($table1), $table->primaryKey[0], true);
+			$relationName                          = $this->generateRelationName($relations, $db->getTableSchema($table1), $table->primaryKey[0], true);
 			$relations[$className1][$relationName] = [
 				"return \$this->hasMany($className0::className(), $link)->viaTable('{$table->name}', $viaLink);",
 				$className0,
@@ -463,7 +465,7 @@ class Generator extends \yii\gii\generators\model\Generator
 			'Generate CRUD',
 			[
 				'/gii/default/view',
-				'id'=>1,
+				'id'=>'ybc-crud',
 				'modelClass'=>$this->ns . '\\' . $this->modelClass,
 			],
 			['target'=>'_blank']

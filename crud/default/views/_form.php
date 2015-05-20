@@ -15,9 +15,9 @@ if (empty($safeAttributes)) {
     $safeAttributes = $model->attributes();
 }
 
-$cancelTitle = ( ! $generator->enableI18N OR $generator->defaultLanguage == 'ru') ? 'Отменить' : 'Cancel';
-$saveTitle = ( ! $generator->enableI18N OR $generator->defaultLanguage == 'ru') ? 'Сохранить' : 'Save';
-$createTitle = ( ! $generator->enableI18N OR $generator->defaultLanguage == 'ru') ? 'Создать' : 'Create';
+$cancelTitle = $generator->enableI18N ? "Yii::t('app', 'Cancel')" : 'Cancel';
+$saveTitle = $generator->enableI18N ? "Yii::t('app', 'Save')" : 'Save';
+$createTitle = $generator->enableI18N ? "Yii::t('app', 'Create')" : 'Create';
 
 echo "<?php\n";
 ?>
@@ -86,17 +86,17 @@ IMG;
 		<div class="col-sm-offset-3 col-sm-9">
 			<?= "<?php if ( \$model->isNewRecord ): ?>
 				<?= Html::submitButton(
-					'<span class=\"glyphicon glyphicon-plus-sign\"></span> ' . ".$generator->generateString($createTitle).",
+					'<span class=\"glyphicon glyphicon-plus-sign\"></span> ' . ".$createTitle.",
 					['class' => 'btn btn-success']
 				) ?>
 			<?php else: ?>
 				<?= Html::submitButton(
-					'<span class=\"glyphicon glyphicon-ok\"></span> ' . ".$generator->generateString($saveTitle).",
+					'<span class=\"glyphicon glyphicon-ok\"></span> ' . ".$saveTitle.",
 					['class' => 'btn btn-primary']
 				) ?>
 			<?php endif; ?>" ?>
 
-			<?= "<?= Html::a(".$generator->generateString($cancelTitle).", ['index'], ['class'=>'btn btn-default']) ?>" ?>
+			<?= "<?= Html::a(".$cancelTitle.", ['index'], ['class'=>'btn btn-default']) ?>" ?>
 
 		</div>
 	</div>

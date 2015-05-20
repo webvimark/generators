@@ -7,7 +7,7 @@ use yii\helpers\StringHelper;
  * @var yii\web\View $this
  * @var webvimark\generators\crud\Generator $generator
  */
-$createTitleStart = ( ! $generator->enableI18N OR $generator->defaultLanguage == 'ru') ? 'Создание' : 'Creating';
+$createTitleStart = $generator->enableI18N ? "Yii::t('app', 'Creating')" : 'Creating';
 
 echo "<?php\n";
 ?>
@@ -17,7 +17,7 @@ echo "<?php\n";
  * @var <?= ltrim($generator->modelClass, '\\') ?> $model
  */
 
-$this->title = <?= $generator->generateString($createTitleStart . ' ' . $generator->createUpdateTitle) ?>;
+$this->title = <?= $createTitleStart . ' . " " . ' . $generator->generateString($generator->createUpdateTitle) ?>;
 $this->params['breadcrumbs'][] = ['label' => <?= $generator->generateString($generator->indexTitle) ?>, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

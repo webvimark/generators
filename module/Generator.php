@@ -23,6 +23,11 @@ use yii\helpers\StringHelper;
 class Generator extends \yii\gii\generators\module\Generator
 {
 	public $moduleClass = 'app\modules\\';
+	public $prepareForComposer = false;
+
+	public $vendorName;
+	public $packageName;
+	public $namespace;
 
 	/**
 	 * @inheritdoc
@@ -38,6 +43,30 @@ class Generator extends \yii\gii\generators\module\Generator
 	public function getDescription()
 	{
 		return 'This generator helps you to generate the skeleton code needed by a Yii module.';
+	}
+
+
+	/**
+	 * @inheritdoc
+	 */
+	public function hints()
+	{
+		return array_merge(parent::hints(), [
+			'prepareForComposer' => 'Create composer.json and add post-install, post-update, post-uninstall scripts',
+			'vendorName'  => 'This refers to the name of the publisher, your GitHub user name is usually a good choice, eg. <code>myself</code>.',
+			'packageName' => 'This is the name of the extension on packagist, eg. <code>yii2-foobar</code>.',
+			'namespace'   => 'PSR-4, eg. <code>myself\foobar\</code> This will be added to your autoloading by composer. Do not use yii, yii2 or yiisoft in the namespace.',
+		]);
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function rules()
+	{
+		return array_merge(parent::rules(), [
+			[['vendorName', 'packageName', 'namespace', 'prepareForComposer'], 'filter', 'filter' => 'trim'],
+		]);
 	}
 
 	/**
@@ -73,6 +102,22 @@ class Generator extends \yii\gii\generators\module\Generator
 			$modulePath . '/messages/config.php',
 			$this->render("config.php")
 		);
+
+		if ( $this->prepareForComposer )
+		{
+			$files[] = new CodeFile(
+				$modulePath . '/composer.json',
+				$this->render("composer.json")
+			);
+			$files[] = new CodeFile(
+				$modulePath . '/YBC_'.$this->moduleID.'_Installer.php',
+				$this->render("ybc_composer_installer.php")
+			);
+			$files[] = new CodeFile(
+				$modulePath . '/README.md',
+				$this->render("README.md")
+			);
+		}
 
 		return $files;
 	}

@@ -9,9 +9,9 @@ use yii\helpers\StringHelper;
  */
 
 $urlParams = $generator->generateUrlParams();
-$viewTitleStart = ( ! $generator->enableI18N OR $generator->defaultLanguage == 'ru') ? 'Детали ' : 'Details of the ';
-$editBtn = ( ! $generator->enableI18N OR $generator->defaultLanguage == 'ru') ? 'Редактировать' : 'Edit';
-$createBtn = ( ! $generator->enableI18N OR $generator->defaultLanguage == 'ru') ? 'Создать' : 'Create';
+$viewTitleStart = $generator->enableI18N ? "Yii::t('app', 'Details of the')" : 'Details of the';
+$editBtn = $generator->enableI18N ? "Yii::t('app', 'Edit')" : 'Edit';
+$createBtn = $generator->enableI18N ? "Yii::t('app', 'Create')" : 'Create';
 
 echo "<?php\n";
 ?>
@@ -24,7 +24,7 @@ use yii\widgets\DetailView;
  * @var <?= ltrim($generator->modelClass, '\\') ?> $model
  */
 
-$this->title = <?= $generator->generateString($viewTitleStart . $generator->createUpdateTitle) ?> . ': ' . $model-><?= $generator->getNameAttribute() ?>;
+$this->title = <?= $viewTitleStart . ' . " " . ' . $generator->generateString($generator->createUpdateTitle) ?> . ': ' . $model-><?= $generator->getNameAttribute() ?>;
 $this->params['breadcrumbs'][] = ['label' => <?= $generator->generateString($generator->indexTitle) ?>, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -35,8 +35,8 @@ $this->params['breadcrumbs'][] = $this->title;
 		<div class="panel-body">
 
 			<p>
-				<?= "<?= " ?>Html::a(<?= $generator->generateString($editBtn) ?>, ['update', <?= $urlParams ?>], ['class' => 'btn btn-sm btn-primary']) ?>
-				<?= "<?= " ?>Html::a(<?= $generator->generateString($createBtn) ?>, ['create'], ['class' => 'btn btn-sm btn-success']) ?>
+				<?= "<?= " ?>Html::a(<?= $editBtn ?>, ['update', <?= $urlParams ?>], ['class' => 'btn btn-sm btn-primary']) ?>
+				<?= "<?= " ?>Html::a(<?= $createBtn ?>, ['create'], ['class' => 'btn btn-sm btn-success']) ?>
 				<?= "<?= " ?>Html::a(Yii::t('yii', 'Delete'), ['delete', <?= $urlParams ?>], [
 					'class' => 'btn btn-sm btn-danger pull-right',
 					'data' => [

@@ -10,7 +10,7 @@ use yii\helpers\StringHelper;
 
 $urlParams = $generator->generateUrlParams();
 $nameAttribute = $generator->getNameAttribute();
-$createBtn = ( ! $generator->enableI18N OR $generator->defaultLanguage == 'ru') ? 'Создать' : 'Create';
+$createBtn = $generator->enableI18N ? "Yii::t('app', 'Create')" : 'Create';
 
 echo "<?php\n";
 ?>
@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			<div class="row">
 				<div class="col-xs-6">
 					<p>
-						<?= "<?= " ?>Html::a('<span class="glyphicon glyphicon-plus-sign"></span> ' . <?= $generator->generateString($createBtn) ?>, ['create'], ['class' => 'btn btn-success']) ?>
+						<?= "<?= " ?>Html::a('<span class="glyphicon glyphicon-plus-sign"></span> ' . <?= $createBtn ?>, ['create'], ['class' => 'btn btn-success']) ?>
 					</p>
 				</div>
 

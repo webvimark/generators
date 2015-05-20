@@ -9,7 +9,7 @@ use yii\helpers\StringHelper;
  */
 
 $urlParams = $generator->generateUrlParams();
-$updateTitleStart = ( ! $generator->enableI18N OR $generator->defaultLanguage == 'ru') ? 'Редактирование' : 'Editing';
+$updateTitleStart = $generator->enableI18N ? "Yii::t('app', 'Editing')" : 'Editing';
 
 echo "<?php\n";
 ?>
@@ -19,7 +19,7 @@ echo "<?php\n";
  * @var <?= ltrim($generator->modelClass, '\\') ?> $model
  */
 
-$this->title = <?= $generator->generateString($updateTitleStart . ' ' . $generator->createUpdateTitle) ?> . ': ' . $model-><?= $generator->getNameAttribute() ?>;
+$this->title = <?= $updateTitleStart . ' . " " . ' . $generator->generateString($generator->createUpdateTitle) ?> . ': ' . $model-><?= $generator->getNameAttribute() ?>;
 $this->params['breadcrumbs'][] = ['label' => <?= $generator->generateString($generator->indexTitle) ?>, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model-><?= $generator->getNameAttribute() ?>, 'url' => ['view', <?= $urlParams ?>]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Editing')
