@@ -71,7 +71,7 @@ $this->params['breadcrumbs'][] = $this->title;
 					'firstPageLabel'=>'<<',
 				],
 
-				'layout'=>'{items}<div class="row"><div class="col-sm-8">{pager}</div><div class="col-sm-4 text-right">{summary}'.GridBulkActions::widget(['gridId'=>'<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>grid']).'</div></div>',
+				'layout'=>'{items}<div class="row"><div class="col-sm-8">{pager}</div><div class="col-sm-4 text-right">{summary}'.GridBulkActions::widget(['gridId'=>'<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-grid']).'</div></div>',
 
 			<?= !empty($generator->searchModelClass) ? "'filterModel' => \$searchModel,\n				'columns' => [\n" : "'columns' => [\n"; ?>
 					['class' => 'yii\grid\SerialColumn', 'options'=>['style'=>'width:10px'] ],
