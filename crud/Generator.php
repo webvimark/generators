@@ -158,7 +158,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 	 */
 	public function generateColumnDependOnName($column)
 	{
-		if ( $column->dbType == 'tinyint(1)' )
+		if ( $column->dbType == 'smallint(1)' )
 		{
 			return $this->_generateStatusColumn($column);
 		}
@@ -539,7 +539,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 	 */
 	public function generateColumnDependOnNameInView($column)
 	{
-		if ( $column->dbType == 'tinyint(1)' )
+		if ( $column->dbType == 'smallint(1)' )
 		{
 			return $this->_generateStatusColumnInView($column);
 		}
@@ -694,7 +694,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 	{
 		foreach ($this->tableSchema->columns as $column)
 		{
-			if ( $column->dbType === 'tinyint(1)' )
+			if ( $column->dbType === 'smallint(1)' )
 				return true;
 		}
 
@@ -724,7 +724,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 		}
 		$column = $tableSchema->columns[$attribute];
 
-		if ( $column->dbType === 'tinyint(1)' )
+		if ( $column->dbType === 'smallint(1)' )
 		{
 			return "\$form->field(\$model->loadDefaultValues(), '$attribute')->checkbox(['class'=>'b-switch'], false)";
 		}
