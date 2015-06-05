@@ -65,7 +65,7 @@ $js = <<<JS
 		searchModelClass.val(path + '\\\search\\\' + name + 'Search');
 		controllerClass.val(path.replace('models', 'controllers') + '\\\' + name + 'Controller');
 
-		viewPath.val('@' + vp.replace('models', 'views'));
+		viewPath.val('@' + vp.replace('models', 'views') + '/' + name);
 	});
 JS;
 $this->registerJs($js);

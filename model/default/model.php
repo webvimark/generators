@@ -133,7 +133,7 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
 	public function afterDelete()
 	{
 <?php if ( count($generator->getAllImageNames($tableSchema)) > 1 ): ?>
-		$this->bulkDeleteImages(['<?= implode(", '", $generator->getAllImageNames($tableSchema)) ?>']);
+		$this->bulkDeleteImages(['<?= implode("', '", $generator->getAllImageNames($tableSchema)) ?>']);
 <?php else: ?>
 		$this->deleteImage($this-><?=  $generator->getAllImageNames($tableSchema)[0] ?>);
 <?php endif; ?>
