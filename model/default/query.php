@@ -25,27 +25,33 @@ namespace <?= $generator->queryNs ?>;
  */
 class <?= $className ?> extends <?= '\\' . ltrim($generator->queryBaseClass, '\\') . "\n" ?>
 {
-    /*public function active()
-    {
-        $this->andWhere('[[status]]=1');
-        return $this;
-    }*/
+	/*public function active()
+	{
+		$this->andWhere('[[active]]=1');
+		return $this;
+	}*/
 
-    /**
-     * @inheritdoc
-     * @return <?= $modelFullClassName ?>[]|array
-     */
-    public function all($db = null)
-    {
-        return parent::all($db);
-    }
+	/*public function activeAndSorted()
+	{
+		$this->andWhere('[[active]]=1')->orderBy('[[sorter]] ASC');
+		return $this;
+	}*/
 
-    /**
-     * @inheritdoc
-     * @return <?= $modelFullClassName ?>|array|null
-     */
-    public function one($db = null)
-    {
-        return parent::one($db);
-    }
+	/**
+	* @inheritdoc
+	* @return <?= $modelFullClassName ?>[]|array
+	*/
+	public function all($db = null)
+	{
+		return parent::all($db);
+	}
+
+	/**
+	* @inheritdoc
+	* @return <?= $modelFullClassName ?>|array|null
+	*/
+	public function one($db = null)
+	{
+		return parent::one($db);
+	}
 }

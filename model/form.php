@@ -30,6 +30,7 @@ echo $form->field($generator, 'generateRelations')->checkbox();
 
 echo $form->field($generator, 'enableI18N')->checkbox();
 echo $form->field($generator, 'messageCategory');
+echo $form->field($generator, 'tPrefix');
 
 echo $form->field($generator, 'generateQuery')->checkbox();
 echo $form->field($generator, 'queryNs');
@@ -39,6 +40,15 @@ echo $form->field($generator, 'queryBaseClass');
 
 <?php
 $js = <<<JS
+	var tPrefix = $('form .field-generator-tprefix');
+
+	var I18NCheckbox = $('form #generator-enablei18n');
+	tPrefix.toggle(I18NCheckbox.is(':checked'));
+
+	I18NCheckbox.on('change', function () {
+                tPrefix.toggle($(this).is(':checked'));
+            });
+
 	$('#generator-tablename').on('keyup change', function(){
 
 		var parts = $(this).val().split('_');

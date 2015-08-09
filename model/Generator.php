@@ -14,6 +14,7 @@ use yii\db\TableSchema;
 use yii\helpers\Html;
 use yii\helpers\Inflector;
 use yii\base\NotSupportedException;
+use yii\helpers\VarDumper;
 
 /**
  * This generator will generate one or multiple ActiveRecord classes for the specified database table.
@@ -36,6 +37,8 @@ class Generator extends \yii\gii\generators\model\Generator
 	public $queryBaseClass = 'yii\db\ActiveQuery';
 
 
+	public $tPrefix = 'Yii';
+
 	public $defaultLanguage = 'en';
 
 	/**
@@ -52,7 +55,7 @@ class Generator extends \yii\gii\generators\model\Generator
 	public function rules()
 	{
 		return array_merge(parent::rules(), [
-			['defaultLanguage', 'string'],
+			[['defaultLanguage', 'tPrefix' ], 'string'],
 		]);
 	}
 
@@ -63,8 +66,18 @@ class Generator extends \yii\gii\generators\model\Generator
 	{
 		return array_merge(
 			parent::stickyAttributes(),
-			['defaultLanguage']
+			['defaultLanguage', 'tPrefix']
 		);
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function hints()
+	{
+		return array_merge(parent::hints(), [
+			'tPrefix' => 'For example <code>PageModule</code>',
+		]);
 	}
 
 	/**
@@ -88,6 +101,40 @@ class Generator extends \yii\gii\generators\model\Generator
 		}
 
 		return false;
+	}
+
+	/**
+	 * Generates a string depending on enableI18N property
+	 *
+	 * @param string $string the text be generated
+	 * @param array $placeholders the placeholders to use by `Yii::t()`
+	 * @return string
+	 */
+	public function generateString($string = '', $placeholders = [])
+	{
+		$string = addslashes($string);
+		if ($this->enableI18N) {
+			// If there are placeholders, use them
+			if (!empty($placeholders)) {
+				$ph = ', ' . VarDumper::export($placeholders);
+			} else {
+				$ph = '';
+			}
+			$str = $this->tPrefix . "::t('" . $this->messageCategory . "', '" . $string . "'" . $ph . ")";
+		} else {
+			// No I18N, replace placeholders by real words, if any
+			if (!empty($placeholders)) {
+				$phKeys = array_map(function($word) {
+					return '{' . $word . '}';
+				}, array_keys($placeholders));
+				$phValues = array_values($placeholders);
+				$str = "'" . str_replace($phKeys, $phValues, $string) . "'";
+			} else {
+				// No placeholders, just the given string
+				$str = "'" . $string . "'";
+			}
+		}
+		return $str;
 	}
 
 	/**
@@ -157,10 +204,10 @@ class Generator extends \yii\gii\generators\model\Generator
 			}
 			else
 			{
-				$label = Inflector::camel2words($column->name);
+				$label = ucfirst(Inflector::camel2words($column->name, false));
 				if ( strcasecmp(substr($label, -3), ' id') === 0 )
 				{
-					$label = substr($label, 0, -3) . ' ID';
+					$label = substr($label, 0, -3);
 				}
 				$labels[$column->name] = $label;
 			}
@@ -171,6 +218,7 @@ class Generator extends \yii\gii\generators\model\Generator
 
 	protected function russianLabels($columnName)
 	{
+		return false;
 		$columnName = rtrim($columnName, '_id');
 
 		$t = [
@@ -287,8 +335,12 @@ class Generator extends \yii\gii\generators\model\Generator
 		foreach ($lengths as $length => $columns)
 		{
 			$columnsWithoutImage = array_diff($columns, $images);
-			$rules[] = "[['" . implode("', '", $columnsWithoutImage) . "'], 'string', 'max' => $length]";
-			$rules[] = "[['" . implode("', '", $columnsWithoutImage) . "'], 'trim']";
+
+			if ( $columnsWithoutImage )
+			{
+				$rules[] = "[['" . implode("', '", $columnsWithoutImage) . "'], 'string', 'max' => $length]";
+				$rules[] = "[['" . implode("', '", $columnsWithoutImage) . "'], 'trim']";
+			}
 		}
 
 		if ( $images )
