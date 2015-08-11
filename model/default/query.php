@@ -27,13 +27,13 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->queryBaseClass, '\\
 {
 	/*public function active()
 	{
-		$this->andWhere('[[active]]=1');
+		$this->andWhere(['<?= $generator->tableName ?>.active'=>1]);
 		return $this;
 	}*/
 
-	/*public function activeAndSorted()
+	/*public function sorted()
 	{
-		$this->andWhere('[[active]]=1')->orderBy('[[sorter]] ASC');
+		$this->orderBy('<?= $generator->tableName ?>.sorter ASC');
 		return $this;
 	}*/
 
