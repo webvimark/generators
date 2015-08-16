@@ -46,6 +46,7 @@ use webvimark\extensions\ckeditor\CKEditor;
 		'id'=>'<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-form',
 		'layout'=>'horizontal',
 		'validateOnBlur'=>false,
+		'validateOnChange'=>false,
 	<?php if ( $generator->hasImages() ): ?>
 		'options'=>[
 			'enctype'=>"multipart/form-data",
