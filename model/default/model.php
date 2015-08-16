@@ -41,6 +41,10 @@ use yii\behaviors\TimestampBehavior;
  */
 class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . "\n" ?>
 {
+<?php if ( in_array('created_at', $tableSchema->columnNames) ): ?>
+	protected $_timestamp_enabled = true;
+<?php endif; ?>
+
 	/**
 	* @inheritdoc
 	*/
@@ -56,18 +60,6 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
 	public static function getDb()
 	{
 		return Yii::$app->get('<?= $generator->db ?>');
-	}
-<?php endif; ?>
-<?php if ( in_array('created_at', $tableSchema->columnNames) ): ?>
-
-	/**
-	* @inheritdoc
-	*/
-	public function behaviors()
-	{
-		return [
-			TimestampBehavior::className(),
-		];
 	}
 <?php endif; ?>
 
@@ -114,7 +106,7 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
 		return new <?= $queryClassFullName ?>(get_called_class());
 	}
 <?php endif; ?>
-<?php if ( isset($tableSchema->columns['url']) ): ?>
+<?php if ( isset($tableSchema->columns['slug']) ): ?>
 
 	/**
 	* Generate url from the name
@@ -123,7 +115,7 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
 	*/
 	public function beforeValidate()
 	{
-		$this->url = $this->url ? $this->url : LittleBigHelper::slug($this->name);
+		$this->slug = $this->slug ? $this->slug : LittleBigHelper::slug($this->name);
 
 		return parent::beforeValidate();
 	}
