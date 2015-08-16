@@ -19,11 +19,8 @@ echo "<?php\n";
 namespace <?= $generator->ns ?>;
 
 use Yii;
-<?php if ( isset($tableSchema->columns['url']) ): ?>
+<?php if ( isset($tableSchema->columns['slug']) ): ?>
 use webvimark\helpers\LittleBigHelper;
-<?php endif; ?>
-<?php if ( in_array('created_at', $tableSchema->columnNames) ): ?>
-use yii\behaviors\TimestampBehavior;
 <?php endif; ?>
 
 /**
