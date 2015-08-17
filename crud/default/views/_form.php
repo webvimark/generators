@@ -70,7 +70,7 @@ use webvimark\extensions\ckeditor\CKEditor;
 		</div>
 	<?php endif; ?>
 
-	<?= \$form->field(\$model, '$attribute', ['enableClientValidation'=>false, 'enableAjaxValidation'=>false])->fileInput(['class'=>'form-control']) ?>
+	<?= \$form->field(\$model, '$attribute', ['enableAjaxValidation'=>false])->fileInput(['class'=>'form-control']) ?>
 
 
 IMG;
