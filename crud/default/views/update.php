@@ -9,7 +9,7 @@ use yii\helpers\StringHelper;
  */
 
 $urlParams = $generator->generateUrlParams();
-$updateTitleStart = $generator->enableI18N ? "Yii::t('app', 'Editing')" : 'Editing';
+$updateTitleStart = $generator->enableI18N ? "Yii::t('app', 'Editing')" : "'Editing'";
 
 echo "<?php\n";
 ?>

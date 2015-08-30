@@ -9,9 +9,9 @@ use yii\helpers\StringHelper;
  */
 
 $urlParams = $generator->generateUrlParams();
-$viewTitleStart = $generator->enableI18N ? "Yii::t('app', 'Details of the')" : 'Details of the';
-$editBtn = $generator->enableI18N ? "Yii::t('app', 'Edit')" : 'Edit';
-$createBtn = $generator->enableI18N ? "Yii::t('app', 'Create')" : 'Create';
+$viewTitleStart = $generator->enableI18N ? "Yii::t('app', 'Details of the')" : "'Details of the'";
+$editBtn = $generator->enableI18N ? "Yii::t('app', 'Edit')" : "'Edit'";
+$createBtn = $generator->enableI18N ? "Yii::t('app', 'Create')" : "'Create'";
 
 echo "<?php\n";
 ?>

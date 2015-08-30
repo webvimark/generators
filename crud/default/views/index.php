@@ -10,7 +10,7 @@ use yii\helpers\StringHelper;
 
 $urlParams = $generator->generateUrlParams();
 $nameAttribute = $generator->getNameAttribute();
-$createBtn = $generator->enableI18N ? "Yii::t('app', 'Create')" : 'Create';
+$createBtn = $generator->enableI18N ? "Yii::t('app', 'Create')" : "'Create'";
 
 echo "<?php\n";
 ?>

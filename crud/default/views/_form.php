@@ -15,9 +15,9 @@ if (empty($safeAttributes)) {
     $safeAttributes = $model->attributes();
 }
 
-$cancelTitle = $generator->enableI18N ? "Yii::t('app', 'Cancel')" : 'Cancel';
-$saveTitle = $generator->enableI18N ? "Yii::t('app', 'Save')" : 'Save';
-$createTitle = $generator->enableI18N ? "Yii::t('app', 'Create')" : 'Create';
+$cancelTitle = $generator->enableI18N ? "Yii::t('app', 'Cancel')" : "'Cancel'";
+$saveTitle = $generator->enableI18N ? "Yii::t('app', 'Save')" : "'Save'";
+$createTitle = $generator->enableI18N ? "Yii::t('app', 'Create')" : "'Create'";
 
 echo "<?php\n";
 ?>

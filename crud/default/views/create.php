@@ -7,7 +7,7 @@ use yii\helpers\StringHelper;
  * @var yii\web\View $this
  * @var webvimark\generators\crud\Generator $generator
  */
-$createTitleStart = $generator->enableI18N ? "Yii::t('app', 'Creating')" : 'Creating';
+$createTitleStart = $generator->enableI18N ? "Yii::t('app', 'Creating')" : "'Creating'";
 
 echo "<?php\n";
 ?>
