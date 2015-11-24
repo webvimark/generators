@@ -28,7 +28,7 @@ class Generator extends \yii\gii\generators\model\Generator
 	public $tableName;
 	public $modelClass;
 	public $baseClass = 'webvimark\components\BaseActiveRecord';
-	public $generateRelations = true;
+	public $generateRelations = 'all';
 	public $generateLabelsFromComments = false;
 	public $useTablePrefix = false;
 	public $generateQuery = false;
