@@ -240,10 +240,16 @@ class Generator extends \yii\gii\generators\crud\Generator
 	protected function _generateImageColumn($column)
 	{
 		return "[
+				'header'=>\$searchModel->getAttributeLabel('{$column->name}'),
 				'value'=>function(\$model){
-						return Html::img(\$model->getImageUrl('small', '{$column->name}'));
+						if ( is_file(\$model->getImagePath('small', '{$column->name}')) )
+						{
+							return Html::img(\$model->getImageUrl('small', '{$column->name}'));
+						}
+
+						return '';
 					},
-				'contentOptions'=>['width'=>'10px'],
+				'contentOptions'=>['width'=>'100px'],
 				'format'=>'raw',
 			]";
 	}
