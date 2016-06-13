@@ -7,12 +7,12 @@
 		}
 	},
 	"require": {
-		"webvimark/bootstrap-switch": "dev-master",
-		"webvimark/grid-bulk-actions": "dev-master",
-		"webvimark/grid-page-size": "dev-master",
-		"webvimark/ckeditor": "dev-master",
-		"webvimark/helpers": "dev-master",
-		"webvimark/date-range-picker": "dev-master",
-		"webvimark/components": "dev-master"
+		"webvimark/bootstrap-switch": "^1.0.0",
+		"webvimark/grid-bulk-actions": "^1.0.0",
+		"webvimark/grid-page-size": "^1.0.0",
+		"webvimark/ckeditor": "^1.0.0",
+		"webvimark/helpers": "^1.0.0",
+		"webvimark/date-range-picker": "^1.0.0",
+		"webvimark/components": "^1.0.0"
 	}
 }
