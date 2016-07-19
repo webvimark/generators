@@ -158,7 +158,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 	 */
 	public function generateColumnDependOnName($column)
 	{
-		if ( $column->dbType == 'smallint(1)' )
+		if ( in_array($column->dbType, ['smallint(1)', 'tinyint(1)']) )
 		{
 			return $this->_generateStatusColumn($column);
 		}
@@ -205,11 +205,12 @@ class Generator extends \yii\gii\generators\crud\Generator
 
 		$relation = lcfirst($refTable);
 
-		return "[
-				'attribute'=>'{$column->name}',
-				'filter'=>ArrayHelper::map({$refTable}::find()->asArray()->all(), 'id', 'name'),
-				'value'=>'{$relation}.name',
-			]";
+		return "
+                    [
+                        'attribute'=>'{$column->name}',
+                        'filter'=>ArrayHelper::map({$refTable}::find()->asArray()->all(), 'id', 'name'),
+                        'value'=>'{$relation}.name',
+                    ]";
 	}
 
 	/**
@@ -239,19 +240,20 @@ class Generator extends \yii\gii\generators\crud\Generator
 	 */
 	protected function _generateImageColumn($column)
 	{
-		return "[
-				'header'=>\$searchModel->getAttributeLabel('{$column->name}'),
-				'value'=>function(\$model){
-						if ( is_file(\$model->getImagePath('small', '{$column->name}')) )
-						{
-							return Html::img(\$model->getImageUrl('small', '{$column->name}'));
-						}
+		return "
+                    [
+                        'header'=>\$searchModel->getAttributeLabel('{$column->name}'),
+                        'value'=>function(\$model){
+                            if ( is_file(\$model->getImagePath('small', '{$column->name}')) )
+                            {
+                                return Html::img(\$model->getImageUrl('small', '{$column->name}'));
+                            }
 
-						return '';
-					},
-				'contentOptions'=>['width'=>'100px'],
-				'format'=>'raw',
-			]";
+                            return '';
+                        },
+                        'contentOptions'=>['width'=>'100px'],
+                        'format'=>'raw',
+                    ]";
 	}
 
 	/**
@@ -261,13 +263,14 @@ class Generator extends \yii\gii\generators\crud\Generator
 	 */
 	protected function _generateLinkColumn($column)
 	{
-		return "[
-				'attribute'=>'{$column->name}',
-				'value'=>function(\$model){
-						return Html::a(\$model->name, ['update', 'id'=>\$model->id], ['data-pjax'=>0]);
-					},
-				'format'=>'raw',
-			]";
+		return "
+                    [
+                        'attribute'=>'{$column->name}',
+                        'value'=>function(\$model){
+                            return Html::a(\$model->name, ['update', 'id'=>\$model->id], ['data-pjax'=>0]);
+                        },
+                        'format'=>'raw',
+                    ]";
 	}
 
 	/**
@@ -289,11 +292,12 @@ class Generator extends \yii\gii\generators\crud\Generator
 	protected function _generateStatusColumn($column)
 	{
 
-		return "[
-				'class'=>'webvimark\components\StatusColumn',
-				'attribute'=>'{$column->name}',
-				'toggleUrl'=>Url::to(['toggle-attribute', 'attribute'=>'{$column->name}', 'id'=>'_id_']),
-			]";
+		return "
+                    [
+                        'class'=>'webvimark\components\StatusColumn',
+                        'attribute'=>'{$column->name}',
+                        'toggleUrl'=>Url::to(['toggle-attribute', 'attribute'=>'{$column->name}', 'id'=>'_id_']),
+                    ]";
 
 	}
 
@@ -358,6 +362,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 			'name',
 			'username',
 			'login',
+			'slug',
 			'url',
 			'email',
 		];
@@ -408,6 +413,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 			'active',
 			'status',
 			'name',
+			'slug',
 			'url',
 			'image',
 			'logo',
@@ -498,7 +504,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 			'id',
 			'created_at',
 			'updated_at',
-			'url',
+			'slug',
 			'meta_title',
 			'meta_keywords',
 			'meta_description',
@@ -545,8 +551,8 @@ class Generator extends \yii\gii\generators\crud\Generator
 	 */
 	public function generateColumnDependOnNameInView($column)
 	{
-		if ( $column->dbType == 'smallint(1)' )
-		{
+        if ( in_array($column->dbType, ['smallint(1)', 'tinyint(1)']) )
+        {
 			return $this->_generateStatusColumnInView($column);
 		}
 		elseif ( $this->isImage($column->name) )
@@ -700,7 +706,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 	{
 		foreach ($this->tableSchema->columns as $column)
 		{
-			if ( $column->dbType === 'smallint(1)' )
+			if ( in_array($column->dbType, ['smallint(1)', 'tinyint(1)']) )
 				return true;
 		}
 
@@ -730,7 +736,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 		}
 		$column = $tableSchema->columns[$attribute];
 
-		if ( $column->dbType === 'smallint(1)' )
+		if ( in_array($column->dbType, ['smallint(1)', 'tinyint(1)']) )
 		{
 			return "\$form->field(\$model->loadDefaultValues(), '$attribute')->checkbox(['class'=>'b-switch'], false)";
 		}

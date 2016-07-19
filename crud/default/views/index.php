@@ -44,7 +44,11 @@ $this->params['breadcrumbs'][] = $this->title;
 			<div class="row">
 				<div class="col-xs-6">
 					<p>
-						<?= "<?= " ?>Html::a('<span class="glyphicon glyphicon-plus-sign"></span> ' . <?= $createBtn ?>, ['create'], ['class' => 'btn btn-success']) ?>
+						<?= "<?= " ?>Html::a(
+                            '<span class="glyphicon glyphicon-plus-sign"></span> ' . <?= $createBtn ?>,
+                            ['create'],
+                            ['class' => 'btn btn-success']
+                        ) ?>
 					</p>
 				</div>
 
@@ -62,19 +66,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
 		<?php if ($generator->indexWidgetType === 'grid'): ?>
 	<?= "<?= " ?>GridView::widget([
-				'id'=>'<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-grid',
-				'dataProvider' => $dataProvider,
-				'pager'=>[
-					'options'=>['class'=>'pagination pagination-sm'],
-					'hideOnSinglePage'=>true,
-					'lastPageLabel'=>'>>',
-					'firstPageLabel'=>'<<',
-				],
+                'id'=>'<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-grid',
+                'dataProvider' => $dataProvider,
+                'pager'=>[
+                    'options'=>['class'=>'pagination pagination-sm'],
+                    'hideOnSinglePage'=>true,
+                    'lastPageLabel'=>'>>',
+                    'firstPageLabel'=>'<<',
+                ],
 
-				'layout'=>'{items}<div class="row"><div class="col-sm-8">{pager}</div><div class="col-sm-4 text-right">{summary}'.GridBulkActions::widget(['gridId'=>'<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-grid']).'</div></div>',
+                'layout'=>'{items}<div class="row"><div class="col-sm-8">{pager}</div><div class="col-sm-4 text-right">{summary}'.GridBulkActions::widget(['gridId'=>'<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-grid']).'</div></div>',
 
-			<?= !empty($generator->searchModelClass) ? "'filterModel' => \$searchModel,\n				'columns' => [\n" : "'columns' => [\n"; ?>
-					['class' => 'yii\grid\SerialColumn', 'options'=>['style'=>'width:10px'] ],
+			    <?= !empty($generator->searchModelClass) ? "'filterModel' => \$searchModel,\n				'columns' => [\n" : "'columns' => [\n"; ?>
+                    ['class' => 'yii\grid\SerialColumn', 'options'=>['style'=>'width:10px'] ],
 
 		<?php
 		$count = 0;
@@ -85,7 +89,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				if ( $generator->notShowColumnsInIndex($name) )
 					continue;
 
-				echo "			'" . $name . "',\n";
+				echo "                    '" . $name . "',\n";
 			}
 		}
 		else
@@ -95,16 +99,16 @@ $this->params['breadcrumbs'][] = $this->title;
 				if ( $generator->notShowColumnsInIndex($column) )
 					continue;
 
-				echo "			" . $generator->generateColumnDependOnName($column) . ",\n";
+                echo "                    " . $generator->generateColumnDependOnName($column) . ",\n";
 			}
 		}
 		?>
 
-					['class' => 'yii\grid\CheckboxColumn', 'options'=>['style'=>'width:10px'] ],
-					[
-						'class' => 'yii\grid\ActionColumn',
-						'contentOptions'=>['style'=>'width:70px; text-align:center;'],
-					],
+                    ['class' => 'yii\grid\CheckboxColumn', 'options'=>['style'=>'width:10px'] ],
+                    [
+                        'class' => 'yii\grid\ActionColumn',
+                        'contentOptions'=>['style'=>'width:70px; text-align:center;'],
+                    ],
 				],
 			]); ?>
 		<?php else: ?>

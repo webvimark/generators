@@ -31,8 +31,8 @@ class Generator extends \yii\gii\generators\model\Generator
 	public $generateRelations = 'all';
 	public $generateLabelsFromComments = false;
 	public $useTablePrefix = false;
-	public $generateQuery = false;
-	public $queryNs = 'app\models';
+	public $generateQuery = true;
+	public $queryNs = 'app\models\query';
 	public $queryClass;
 	public $queryBaseClass = 'yii\db\ActiveQuery';
 

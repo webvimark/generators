@@ -1,4 +1,4 @@
-Migrations module for Yii 2
+Generators for Yii 2
 =====
 Provide:
 * usage of relations in views and search
@@ -36,10 +36,10 @@ In your config/web.php
 	$config['modules']['gii'] = [
 		'class'=>'yii\gii\Module',
 		'generators' => [
-			'ybc-model'     => 'webvimark\generators\model\Generator',
-			'ybc-crud'      => 'webvimark\generators\crud\Generator',
-			'ybc-module'    => 'webvimark\generators\module\Generator',
-			'ybc-extension' => 'webvimark\generators\extension\Generator',
+			'n-model'     => 'webvimark\generators\model\Generator',
+			'n-crud'      => 'webvimark\generators\crud\Generator',
+			'n-module'    => 'webvimark\generators\module\Generator',
+			'n-extension' => 'webvimark\generators\extension\Generator',
 		]
 	];
 ```
