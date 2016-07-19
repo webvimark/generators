@@ -36,6 +36,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 	public $searchModelClass;
 	public $indexTitle;
 	public $createUpdateTitle;
+	public $addBootstrapPanel = true;
 
 	public $messageCategory = 'app';
 	public $defaultLanguage = 'en';
@@ -54,7 +55,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 		return array_merge(parent::rules(), [
 			[['indexTitle', 'createUpdateTitle', 'tPrefix', 'layout'], 'filter', 'filter' => 'trim'],
 			['defaultLanguage', 'string'],
-			[['indexTitle', 'createUpdateTitle', 'layout'], 'required'],
+			[['indexTitle', 'createUpdateTitle', 'layout', 'addBootstrapPanel'], 'required'],
 		]);
 	}
 
@@ -68,7 +69,8 @@ class Generator extends \yii\gii\generators\crud\Generator
 			'tPrefix' => 'For example <code>PageModule</code>',
 			'indexTitle' => 'Title for the index page',
 			'createUpdateTitle' => 'Title for the create and update pages <code>Создание бла-бла-бла</code> или <code>Редактирование бла-бла-бла</code>',
-		]);
+            'addBootstrapPanel' => 'Wrap views content in <code>div class="panel panel-default"</code>',
+        ]);
 	}
 	/**
 	 * @inheritdoc
@@ -77,7 +79,7 @@ class Generator extends \yii\gii\generators\crud\Generator
 	{
 		return array_merge(
 			parent::stickyAttributes(),
-			['baseControllerClass', 'moduleID', 'indexWidgetType', 'tPrefix', 'defaultLanguage', 'layout']
+			['baseControllerClass', 'moduleID', 'indexWidgetType', 'tPrefix', 'defaultLanguage', 'layout', 'addBootstrapPanel']
 		);
 	}
 

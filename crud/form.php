@@ -18,6 +18,7 @@ echo $form->field($generator, 'searchModelClass');
 echo $form->field($generator, 'controllerClass');
 echo $form->field($generator, 'viewPath');
 echo $form->field($generator, 'layout');
+echo $form->field($generator, 'addBootstrapPanel')->checkbox();
 echo $form->field($generator, 'indexTitle');
 echo $form->field($generator, 'createUpdateTitle');
 echo $form->field($generator, 'baseControllerClass');

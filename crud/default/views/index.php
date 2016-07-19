@@ -38,8 +38,10 @@ $this->params['breadcrumbs'][] = $this->title;
 <?= "	<?php " . ($generator->indexWidgetType === 'grid' ? "// " : "") ?>echo $this->render('_search', ['model' => $searchModel]); ?>
 <?php endif; ?>
 
-	<div class="panel panel-default">
-		<div class="panel-body">
+    <?php if ($generator->addBootstrapPanel): ?>
+    <div class="panel panel-default">
+        <div class="panel-body">
+    <?php endif; ?>
 
 			<div class="row">
 				<div class="col-xs-6">
@@ -123,6 +125,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
 			<?= "<?php Pjax::end() ?>" ?>
 
+        <?php if ($generator->addBootstrapPanel): ?>
 		</div>
-	</div>
+    </div>
+<?php endif; ?>
+
 </div>

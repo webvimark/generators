@@ -23,12 +23,16 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-create">
 
-	<div class="panel panel-default">
-		<div class="panel-body">
+    <?php if ($generator->addBootstrapPanel): ?>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <?php endif; ?>
 
-			<?= "<?= \$this->render('_form', compact('model')) ?>" ?>
+            <?= "<?= \$this->render('_form', compact('model')) ?>" ?>
 
-		</div>
-	</div>
+            <?php if ($generator->addBootstrapPanel): ?>
+        </div>
+    </div>
+<?php endif; ?>
 
 </div>

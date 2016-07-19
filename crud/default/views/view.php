@@ -30,9 +30,11 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-view">
 
+    <?php if ($generator->addBootstrapPanel): ?>
+    <div class="panel panel-default">
+        <div class="panel-body">
+    <?php endif; ?>
 
-	<div class="panel panel-default">
-		<div class="panel-body">
 
 			<p>
 				<?= "<?= " ?>Html::a(<?= $editBtn ?>, ['update', <?= $urlParams ?>], ['class' => 'btn btn-sm btn-primary']) ?>
@@ -76,6 +78,9 @@ $this->params['breadcrumbs'][] = $this->title;
 				],
 			]) ?>
 
-		</div>
-	</div>
+            <?php if ($generator->addBootstrapPanel): ?>
+        </div>
+    </div>
+            <?php endif; ?>
+
 </div>
