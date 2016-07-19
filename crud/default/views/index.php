@@ -107,7 +107,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ['class' => 'yii\grid\CheckboxColumn', 'options'=>['style'=>'width:10px'] ],
                     [
                         'class' => 'yii\grid\ActionColumn',
-                        'contentOptions'=>['style'=>'width:70px; text-align:center;'],
+                        'contentOptions'=>['style'=>'width:70px; text-align:center; white-space:nowrap;'],
                     ],
 				],
 			]); ?>
